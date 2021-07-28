@@ -31,8 +31,9 @@ public class PlayerController : MonoBehaviour
             Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 100, movement))
+            if (Physics.Raycast(ray, out hit, 300, movement))
             {
+                Debug.Log("Hit ground & moving");
                 //Move player to clicked position
                 motor.MoveToPoint(hit.point);
 
@@ -49,7 +50,7 @@ public class PlayerController : MonoBehaviour
             Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 100, interact))
+            if (Physics.Raycast(ray, out hit, 300, interact))
             {
                 InteractableObject interactable = hit.collider.GetComponent<InteractableObject>();
                 if (interactable != null)
