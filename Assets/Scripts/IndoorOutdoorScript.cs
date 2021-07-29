@@ -8,13 +8,19 @@ public class IndoorOutdoorScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trigger enter");
-        outdoor_wall.SetActive(false);
+        if (other.gameObject.tag == "Player")
+        {
+            Debug.Log("Trigger enter");
+            outdoor_wall.SetActive(false);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Trigger exit");
-        outdoor_wall.SetActive(true);
+        if (other.gameObject.tag == "Player")
+        {
+            Debug.Log("Trigger exit");
+            outdoor_wall.SetActive(true);
+        }
     }
 }
