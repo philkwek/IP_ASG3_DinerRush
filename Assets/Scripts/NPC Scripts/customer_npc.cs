@@ -16,6 +16,8 @@ public class customer_npc : MonoBehaviour
     private int target_index;
     private int npc_model;
 
+    private GameObject spawnObject;
+
     private void Awake()
     {
         AI_targets[0] = GameObject.Find("AiTarget_0");
@@ -31,6 +33,8 @@ public class customer_npc : MonoBehaviour
         AI_targets_face[3] = GameObject.Find("AiTarget_Face_3");
         AI_targets_face[4] = GameObject.Find("AiTarget_Face_4");
         AI_targets_face[5] = GameObject.Find("AiTarget_Face_5");
+
+        spawnObject = GameObject.Find("NPC_Spawn");
     }
 
     // Start is called before the first frame update
@@ -49,6 +53,12 @@ public class customer_npc : MonoBehaviour
             Debug.Log("Turning");
             FaceTarget();
         }
+
+        if (AI_targets == null)
+        {
+            //stop spawn
+            spawnObject.SetActive(false);
+        }
     }
 
     public void RandomizeNPC() //this function randomely chooses a NPC Model to use
@@ -59,9 +69,26 @@ public class customer_npc : MonoBehaviour
 
     public void RandomizeTarget() //this function picks a random target zone for NPC to go and seat inside the restaurant
     {
-        target_index = Random.Range(0, 6); //produces random number for picking out which target to choose from
-        Debug.Log(target_index);
-        MoveToPoint(AI_targets[target_index].transform.position);
+        bool target_exist = false;
+
+        while (target_exist == false) //this loop will ensure that the target position exists
+        {
+            target_index = Random.Range(0, 6); //produces random number for picking out which target to choose from
+
+            if (AI_targets[target_index] != null)
+            {
+                MoveToPoint(AI_targets[target_index].transform.position);
+                Debug.Log("AI is going to location: " + target_index);
+                target_exist = true;
+                break;
+            }
+
+            if (AI_targets == null)
+            {
+                break;
+            }
+        }
+        
     }
 
     public void MoveToPoint(Vector3 point) //this function is for moving the playerobject
