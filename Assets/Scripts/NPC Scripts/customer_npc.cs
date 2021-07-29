@@ -16,6 +16,23 @@ public class customer_npc : MonoBehaviour
     private int target_index;
     private int npc_model;
 
+    private void Awake()
+    {
+        AI_targets[0] = GameObject.Find("AiTarget_0");
+        AI_targets[1] = GameObject.Find("AiTarget_1");
+        AI_targets[2] = GameObject.Find("AiTarget_2");
+        AI_targets[3] = GameObject.Find("AiTarget_3");
+        AI_targets[4] = GameObject.Find("AiTarget_4");
+        AI_targets[5] = GameObject.Find("AiTarget_5");
+
+        AI_targets_face[0] = GameObject.Find("AiTarget_Face_0");
+        AI_targets_face[1] = GameObject.Find("AiTarget_Face_1");
+        AI_targets_face[2] = GameObject.Find("AiTarget_Face_2");
+        AI_targets_face[3] = GameObject.Find("AiTarget_Face_3");
+        AI_targets_face[4] = GameObject.Find("AiTarget_Face_4");
+        AI_targets_face[5] = GameObject.Find("AiTarget_Face_5");
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +51,7 @@ public class customer_npc : MonoBehaviour
         }
     }
 
-    public void RandomizeNPC() //this function randomely chooses between the 2 NPC Models for use
+    public void RandomizeNPC() //this function randomely chooses a NPC Model to use
     {
         npc_model = Random.Range(0, 2);
         NPC_Model[npc_model].SetActive(true);
