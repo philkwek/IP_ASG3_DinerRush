@@ -43,4 +43,9 @@ public class SpawnNPCScript : MonoBehaviour
     {
         return Time.time >= nextSpawnTime;
     }
+
+    public void decreaseNPC()
+    {
+        npc_number -= 1;
+    }
 }

@@ -17,6 +17,7 @@ public class customer_npc : MonoBehaviour
     private int npc_model;
 
     private GameObject spawnObject;
+    private GameObject leaveObject;
 
     private void Awake()
     {
@@ -26,6 +27,7 @@ public class customer_npc : MonoBehaviour
         AI_targets[3] = GameObject.Find("AiTarget_3");
         AI_targets[4] = GameObject.Find("AiTarget_4");
         AI_targets[5] = GameObject.Find("AiTarget_5");
+        // add on here for additional seating locations
 
         AI_targets_face[0] = GameObject.Find("AiTarget_Face_0");
         AI_targets_face[1] = GameObject.Find("AiTarget_Face_1");
@@ -33,8 +35,10 @@ public class customer_npc : MonoBehaviour
         AI_targets_face[3] = GameObject.Find("AiTarget_Face_3");
         AI_targets_face[4] = GameObject.Find("AiTarget_Face_4");
         AI_targets_face[5] = GameObject.Find("AiTarget_Face_5");
+        //add on here for additional seating locations
 
         spawnObject = GameObject.Find("NPC_Spawn");
+        leaveObject = GameObject.Find("NPC_Leave");
     }
 
     // Start is called before the first frame update
@@ -77,7 +81,6 @@ public class customer_npc : MonoBehaviour
                 break;
             }
         }
-        
     }
 
     public void MoveToPoint(Vector3 point) //this function is for moving the playerobject
@@ -90,6 +93,13 @@ public class customer_npc : MonoBehaviour
         Vector3 direction = (AI_targets_face[target_index].transform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+    }
+
+    public void LeaveRestaurant() //leave restaurant script
+    {
+        MoveToPoint(leaveObject.transform.position);
+        //spawnObject.GetComponent<SpawnNPCScript>().decreaseNPC();
+        //function above decreases total number of NPCs in game, allowing spawner to spawn in more NPCs
     }
 
 
