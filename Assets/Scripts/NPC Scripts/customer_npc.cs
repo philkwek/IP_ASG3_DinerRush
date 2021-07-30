@@ -53,12 +53,6 @@ public class customer_npc : MonoBehaviour
             //Debug.Log("Turning");
             FaceTarget();
         }
-
-        if (AI_targets == null)
-        {
-            //stop spawn
-            spawnObject.SetActive(false);
-        }
     }
 
     public void RandomizeNPC() //this function randomely chooses a NPC Model to use
@@ -80,11 +74,6 @@ public class customer_npc : MonoBehaviour
                 MoveToPoint(AI_targets[target_index].transform.position);
                 Debug.Log("AI is going to location: " + target_index);
                 target_exist = true;
-                break;
-            }
-
-            if (AI_targets == null)
-            {
                 break;
             }
         }

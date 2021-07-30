@@ -12,6 +12,8 @@ public class SpawnNPCScript : MonoBehaviour
     [SerializeField]
     private float spawnDelay = 10; // sets spawn rate of the NPC
 
+    public int npc_number;
+
     //private Player activeNPC;
 
     // Start is called before the first frame update
@@ -23,7 +25,7 @@ public class SpawnNPCScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ShouldSpawn())
+        if (ShouldSpawn() && npc_number < 6)
         {
             Spawn();
         }
@@ -31,6 +33,7 @@ public class SpawnNPCScript : MonoBehaviour
 
     private void Spawn() //this function handles the spawn of NPC object
     {
+        npc_number += 1;
         nextSpawnTime = Time.time + spawnDelay;
         Instantiate(npcPrefab, SpawnLocation.position, SpawnLocation.rotation);
         //newNPC.
