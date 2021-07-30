@@ -50,7 +50,7 @@ public class customer_npc : MonoBehaviour
     {
         if (agent.velocity.magnitude < 0.15f) // turns NPC to face the appropriate direction once AI is "seated"
         {
-            Debug.Log("Turning");
+            //Debug.Log("Turning");
             FaceTarget();
         }
 
@@ -71,7 +71,7 @@ public class customer_npc : MonoBehaviour
     {
         bool target_exist = false;
 
-        while (target_exist == false) //this loop will ensure that the target position exists
+        while (target_exist == false && AI_targets != null) //this loop will ensure that the target position exists
         {
             target_index = Random.Range(0, 6); //produces random number for picking out which target to choose from
 
