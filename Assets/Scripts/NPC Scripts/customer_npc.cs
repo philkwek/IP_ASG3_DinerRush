@@ -34,7 +34,6 @@ public class customer_npc : MonoBehaviour
         AI_targets[10] = GameObject.Find("AiTarget_10");
         AI_targets[11] = GameObject.Find("AiTarget_11");
         AI_targets[12] = GameObject.Find("AiTarget_12");
-        AI_targets[13] = GameObject.Find("AiTarget_13");
         // add on here for additional seating locations
 
         AI_targets_face[0] = GameObject.Find("AiTarget_Face_0");
@@ -50,7 +49,6 @@ public class customer_npc : MonoBehaviour
         AI_targets_face[10] = GameObject.Find("AiTarget_Face_10");
         AI_targets_face[11] = GameObject.Find("AiTarget_Face_11");
         AI_targets_face[12] = GameObject.Find("AiTarget_Face_12");
-        AI_targets_face[13] = GameObject.Find("AiTarget_Face_13");
         //add on here for additional seating locations
 
         spawnObject = GameObject.Find("NPC_Spawn");
@@ -87,7 +85,7 @@ public class customer_npc : MonoBehaviour
 
         while (target_exist == false && AI_targets != null) //this loop will ensure that the target position exists
         {
-            target_index = Random.Range(0, 14); //produces random number for picking out which target to choose from
+            target_index = Random.Range(0, 13); //produces random number for picking out which target to choose from
 
             if (AI_targets[target_index] != null)
             {

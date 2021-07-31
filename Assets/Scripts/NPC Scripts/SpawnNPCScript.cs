@@ -34,7 +34,6 @@ public class SpawnNPCScript : MonoBehaviour
         AI_targets[10] = GameObject.Find("AiTarget_10");
         AI_targets[11] = GameObject.Find("AiTarget_11");
         AI_targets[12] = GameObject.Find("AiTarget_12");
-        AI_targets[13] = GameObject.Find("AiTarget_13");
     }
 
     // Update is called once per frame
