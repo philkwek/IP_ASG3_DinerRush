@@ -12,6 +12,8 @@ public class SpawnNPCScript : MonoBehaviour
     [SerializeField]
     private float spawnDelay = 10; // sets spawn rate of the NPC
 
+    public GameObject[] AI_targets; //this check is to ensure the spawner does not spawn when there are no more areas left
+
     public int npc_number;
 
     //private Player activeNPC;
@@ -19,13 +21,26 @@ public class SpawnNPCScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        AI_targets[0] = GameObject.Find("AiTarget_0");
+        AI_targets[1] = GameObject.Find("AiTarget_1");
+        AI_targets[2] = GameObject.Find("AiTarget_2");
+        AI_targets[3] = GameObject.Find("AiTarget_3");
+        AI_targets[4] = GameObject.Find("AiTarget_4");
+        AI_targets[5] = GameObject.Find("AiTarget_5");
+        AI_targets[6] = GameObject.Find("AiTarget_6");
+        AI_targets[7] = GameObject.Find("AiTarget_7");
+        AI_targets[8] = GameObject.Find("AiTarget_8");
+        AI_targets[9] = GameObject.Find("AiTarget_9");
+        AI_targets[10] = GameObject.Find("AiTarget_10");
+        AI_targets[11] = GameObject.Find("AiTarget_11");
+        AI_targets[12] = GameObject.Find("AiTarget_12");
+        AI_targets[13] = GameObject.Find("AiTarget_13");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (ShouldSpawn() && npc_number < 6)
+        if (ShouldSpawn() && npc_number < 14 && AI_targets != null)
         {
             Spawn();
         }
