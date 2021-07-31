@@ -6,6 +6,8 @@ TagManager:
   tags:
   - CustomerNPC
   - Target_AI
+  - Minimart_Target
+  - Merchant_AI
   layers:
   - Default
   - TransparentFX
