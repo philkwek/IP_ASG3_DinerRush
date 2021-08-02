@@ -1,0 +1,4 @@
+Egg - Character Texture
+Sunny Side Up - Egg Texture
+Raw Egg Yolk - Egg Yellow: Egg Texture
+		Egg White : Transparent material in unity

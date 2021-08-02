@@ -8,7 +8,6 @@ public class PatrolMiniMartScript : MonoBehaviour
     {
         if (other.gameObject.tag == "Merchant_AI" && gameObject.name == "Target_0")
         {
-            Debug.Log("Merchant detected -> " + other.gameObject.name);
             other.gameObject.GetComponent<MerchantNPCScript>().patrol_2();
 
         } else if (other.gameObject.tag == "Merchant_AI" && gameObject.name == "Target_1")

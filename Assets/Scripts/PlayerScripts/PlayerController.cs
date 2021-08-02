@@ -12,7 +12,12 @@ public class PlayerController : MonoBehaviour
     public GameObject playerObject;
 
     public InteractableObject focus;
+    public GameObject focusObject;
 
+    public bool UI_enable = false;
+
+    public bool minimart = false;
+    public GameObject MerchantUI;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +29,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (MerchantUI.gameObject.activeSelf == true) //this check is for ray, to ensure it does not cast when menu is open
+        {
+            UI_enable = true;
+        } else
+        {
+            UI_enable = false;
+        }
+
         //move script for character, when player left clicks on area, player will move towards area
         if (Input.GetMouseButtonDown(0))
         {
@@ -31,8 +44,8 @@ public class PlayerController : MonoBehaviour
             Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 300, movement))
-            {
+            if (Physics.Raycast(ray, out hit, 300, movement) && UI_enable == false)
+            { 
                 Debug.Log("Hit ground & moving");
                 //Move player to clicked position
                 motor.MoveToPoint(hit.point);
@@ -50,8 +63,9 @@ public class PlayerController : MonoBehaviour
             Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 300, interact))
+            if (Physics.Raycast(ray, out hit, 300, interact) && UI_enable == false)
             {
+                focusObject = hit.collider.gameObject;
                 InteractableObject interactable = hit.collider.GetComponent<InteractableObject>();
                 if (interactable != null)
                 {
@@ -59,6 +73,16 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if(focusObject.transform.tag == "Merchant_AI" && minimart == true)
+            {
+                MerchantUI.SetActive(true);
+                Time.timeScale = 0;
+            }
+        }
+
     }
 
     void SetFocus(InteractableObject newFocus)
@@ -87,4 +111,6 @@ public class PlayerController : MonoBehaviour
         focus = null;
         motor.StopFollowTarget();
     }
+
+    
 }

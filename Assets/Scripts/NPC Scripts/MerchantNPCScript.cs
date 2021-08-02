@@ -46,6 +46,8 @@ public class MerchantNPCScript : MonoBehaviour
             playerObject = other.gameObject;
             Debug.Log("Detected Player! -> " + playerObject.name);
             playerFocus = true;
+            playerObject.GetComponent<PlayerController>().minimart = true;
+    
         }
     }
 
@@ -53,6 +55,7 @@ public class MerchantNPCScript : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            playerObject.GetComponent<PlayerController>().minimart = false;
             playerObject = null;
             Debug.Log("Player left focus!");
             playerFocus = false;
