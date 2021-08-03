@@ -5,16 +5,23 @@ using UnityEngine;
 public class SpawnNPCScript : MonoBehaviour
 {
     private float nextSpawnTime;
+
     [SerializeField]
     private Transform SpawnLocation;
+
     [SerializeField]
     private GameObject npcPrefab;
+
+    [SerializeField]
+    private GameObject ramseyPrefab;
+
     [SerializeField]
     private float spawnDelay = 10; // sets spawn rate of the NPC
 
-    public GameObject[] AI_targets; //this check is to ensure the spawner does not spawn when there are no more areas left
+    public GameObject[] AI_targets; // this check is to ensure the spawner does not spawn when there are no more areas left
 
     public int npc_number;
+    public int max_npc; // variable to be set by roundscript
 
     //private Player activeNPC;
 
@@ -39,7 +46,7 @@ public class SpawnNPCScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ShouldSpawn() && npc_number < 14 && AI_targets != null)
+        if (ShouldSpawn() && npc_number < max_npc && AI_targets != null)
         {
             Spawn();
         }
@@ -53,6 +60,11 @@ public class SpawnNPCScript : MonoBehaviour
         //newNPC.
     }
 
+    public void SpawnRamsey()
+    {
+        Instantiate(ramseyPrefab, SpawnLocation.position, SpawnLocation.rotation);
+    }
+
     private bool ShouldSpawn() 
     {
         return Time.time >= nextSpawnTime;
@@ -60,6 +72,6 @@ public class SpawnNPCScript : MonoBehaviour
 
     public void decreaseNPC()
     {
-        npc_number -= 1;
+        //npc_number -= 1;
     }
 }
