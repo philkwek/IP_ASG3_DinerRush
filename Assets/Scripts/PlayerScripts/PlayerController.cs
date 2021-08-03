@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
             if(focusObject.transform.tag == "Merchant_AI" && minimart == true)
             {
                 MerchantUI.SetActive(true);
-                Time.timeScale = 0;
+                //Time.timeScale = 0;
             }
         }
 

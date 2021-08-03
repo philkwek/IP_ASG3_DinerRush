@@ -27,7 +27,7 @@ public class SelectMenuScript : MonoBehaviour
 
     public void CloseMenu()
     {
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
     }
 
     public void IncreaseQty() //functions for UI buttons

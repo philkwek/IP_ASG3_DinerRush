@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PatrolMiniMartScript : MonoBehaviour
+public class PatrolMiniMartScript : MonoBehaviour //script for merchant to patrol mini mart
 {
     private void OnTriggerEnter(Collider other)
     {
