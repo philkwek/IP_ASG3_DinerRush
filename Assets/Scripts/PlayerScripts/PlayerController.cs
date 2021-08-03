@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(PlayerMotor))]
 public class PlayerController : MonoBehaviour
@@ -38,7 +39,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //move script for character, when player left clicks on area, player will move towards area
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
@@ -57,7 +58,7 @@ public class PlayerController : MonoBehaviour
 
         //interaction script, this will move character towards the interactable object defined by it's layer.
         //Interaction begins when player model is in radius of the interaction distance set.
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
@@ -112,5 +113,4 @@ public class PlayerController : MonoBehaviour
         motor.StopFollowTarget();
     }
 
-    
 }
