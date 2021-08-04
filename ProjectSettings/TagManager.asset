@@ -8,6 +8,7 @@ TagManager:
   - Target_AI
   - Minimart_Target
   - Merchant_AI
+  - Fridge
   layers:
   - Default
   - TransparentFX

@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
 
     public bool minimart = false;
     public GameObject MerchantUI;
+    public GameObject FridgeUI;
 
     // Start is called before the first frame update
     void Start()
@@ -75,12 +76,19 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E)) //interaction w object codes
         {
             if(focusObject.transform.tag == "Merchant_AI" && minimart == true)
             {
                 MerchantUI.SetActive(true);
                 //Time.timeScale = 0;
+            }
+
+            if (focusObject.transform.tag == "Fridge")
+            {
+                //int[] tempInventory = gameObject.GetComponent<PlayerInventory>().inventory;
+                //focusObject.GetComponent<FridgeScript>().inventoryArray = tempInventory;
+                FridgeUI.SetActive(true);
             }
         }
 

@@ -19,19 +19,29 @@ public class PlayerUIScript : MonoBehaviour
 
     private void Awake()
     {
+        
+        
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
         if (RoundIndex == 1 || RoundIndex == 2 || RoundIndex == 3)
         {
             if (RoundIndex == 1)
             {
                 parentObject = GameObject.Find("day1_morning");
-            } else if (RoundIndex == 2)
+            }
+            else if (RoundIndex == 2)
             {
                 parentObject = GameObject.Find("day2_morning");
-            } else if (RoundIndex == 3)
+            }
+            else if (RoundIndex == 3)
             {
                 parentObject = GameObject.Find("day3_morning");
             }
-            
+
             obj1_done = parentObject.transform.Find("obj1_done").gameObject;
             obj2_done = parentObject.transform.Find("obj2_done").gameObject;
             obj3_done = parentObject.transform.Find("obj3_done").gameObject;
@@ -44,7 +54,8 @@ public class PlayerUIScript : MonoBehaviour
             obj4_done.SetActive(false);
             obj5_done.SetActive(false);
 
-        } else if (RoundIndex == 4)
+        }
+        else if (RoundIndex == 4)
         {
             parentObject = GameObject.Find("day4_morning");
 
@@ -58,12 +69,6 @@ public class PlayerUIScript : MonoBehaviour
             obj3_done.SetActive(false);
             obj4_done.SetActive(false);
         }
-        
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
     }
 
     // Update is called once per frame
