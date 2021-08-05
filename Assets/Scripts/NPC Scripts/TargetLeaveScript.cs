@@ -26,11 +26,13 @@ public class TargetLeaveScript : MonoBehaviour
     {
         if (other.transform.tag == "CustomerNPC")
         {
-            Target.SetActive(false);
+            Target.SetActive(false); //disables target so spawner knows that seat has been occupied
 
             NPC = other.gameObject;
 
-            Invoke("leaveFunction", 5.0f); // temporary function to test leaving script
+            NPC.GetComponent<npcMoodScript>().orderAlert();
+
+            //Invoke("leaveFunction", 5.0f); // temporary function to test leaving script
         }
     }
 
@@ -39,7 +41,6 @@ public class TargetLeaveScript : MonoBehaviour
         if (other.transform.tag == "CustomerNPC")
         {
             Target.SetActive(true);
-            
         }
     }
 
