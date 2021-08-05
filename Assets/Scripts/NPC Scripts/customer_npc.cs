@@ -22,6 +22,8 @@ public class customer_npc : MonoBehaviour
     private GameObject spawnObject;
     private GameObject leaveObject;
 
+    public GameObject canvas;
+
     private void Awake()
     {
 
@@ -57,6 +59,8 @@ public class customer_npc : MonoBehaviour
 
         spawnObject = GameObject.Find("NPC_Spawn");
         leaveObject = GameObject.Find("NPC_Leave");
+
+        canvas = GameObject.Find("Canvas");
     }
 
     // Start is called before the first frame update
@@ -75,6 +79,13 @@ public class customer_npc : MonoBehaviour
             //Debug.Log("Turning");
             FaceTarget();
         }
+    }
+
+    public void interactOrder() //function that runs from playercontroller, opens order menu
+    {
+        canvas.GetComponent<orderScript>().orderText = orderText;
+        canvas.GetComponent<orderScript>().assignedOrder = assignedOrder;
+        canvas.GetComponent<orderScript>().orderMenuOpen();
     }
 
     public void RandomizeNPC() //this function randomely chooses a NPC Model to use

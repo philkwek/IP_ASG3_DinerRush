@@ -9,6 +9,9 @@ public class PlayerUIScript : MonoBehaviour
     public Animator clipboard;
     public bool clipboard_toggle = false;
 
+    public Animator order;
+    public bool order_toggle = false;
+
     public int RoundIndex;
     public GameObject parentObject;
     public GameObject obj1_done;
@@ -87,6 +90,19 @@ public class PlayerUIScript : MonoBehaviour
         {
             clipboard_toggle = false;
             clipboard.SetBool("Toggled", false);
+        }
+    }
+
+    public void orderToggle()
+    {
+        if (order_toggle == false)
+        {
+            order.SetBool("toggle_orders", true);
+            order_toggle = true;
+        } else
+        {
+            order.SetBool("toggle_orders", false);
+            order_toggle = false;
         }
     }
 

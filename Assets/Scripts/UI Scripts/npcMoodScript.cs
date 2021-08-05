@@ -9,15 +9,17 @@ public class npcMoodScript : MonoBehaviour
     public Image happy;
     public Image disappointed;
     public Image angry;
+    public Image wrong;
 
     public Transform reactionSpawn; //spawn point for the image
+    public GameObject parent;
 
     private Image uiUse;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        parent = GameObject.Find("Alerts");
     }
 
     // Update is called once per frame
@@ -29,6 +31,11 @@ public class npcMoodScript : MonoBehaviour
         }
     }
 
+    public void offAlert()
+    {
+        Destroy(uiUse);
+    }
+
     public void orderAlert()
     {
         if (uiUse != null) //ensures that previous reactions are cleared before initating code
@@ -37,6 +44,7 @@ public class npcMoodScript : MonoBehaviour
         }
         Debug.Log("Spawning UI");
         uiUse = Instantiate(order, FindObjectOfType<Canvas>().transform).GetComponent<Image>();
+        uiUse.transform.parent = parent.transform;
     }
 
     public void happyAlert()
@@ -47,6 +55,7 @@ public class npcMoodScript : MonoBehaviour
         }
 
         uiUse = Instantiate(happy, FindObjectOfType<Canvas>().transform).GetComponent<Image>();
+        uiUse.transform.parent = parent.transform;
     }
 
     public void disappointedAlert()
@@ -57,6 +66,7 @@ public class npcMoodScript : MonoBehaviour
         }
 
         uiUse = Instantiate(disappointed, FindObjectOfType<Canvas>().transform).GetComponent<Image>();
+        uiUse.transform.parent = parent.transform;
     }
 
     public void angryAlert()
@@ -67,5 +77,17 @@ public class npcMoodScript : MonoBehaviour
         }
 
         uiUse = Instantiate(angry, FindObjectOfType<Canvas>().transform).GetComponent<Image>();
+        uiUse.transform.parent = parent.transform;
+    }
+
+    public void wrongOrder()
+    {
+        if (uiUse != null) //ensures that previous reactions are cleared before initating code
+        {
+            Destroy(uiUse);
+        }
+
+        uiUse = Instantiate(wrong, FindObjectOfType<Canvas>().transform).GetComponent<Image>();
+        uiUse.transform.parent = parent.transform;
     }
 }

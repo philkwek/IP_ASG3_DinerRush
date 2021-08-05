@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public bool UI_enable = false;
 
     public bool minimart = false;
+    public GameObject canvas;
     public GameObject MerchantUI;
     public GameObject FridgeUI;
 
@@ -95,6 +96,13 @@ public class PlayerController : MonoBehaviour
             if (focusObject.transform.tag == "RestaurantOpen")
             {
                 focusObject.GetComponent<openRestaurantScript>().openDoors();
+            }
+
+            if (focusObject.transform.tag == "CustomerNPC")
+            {
+                focusObject.GetComponent<customer_npc>().interactOrder();
+                canvas.GetComponent<orderScript>().npcMood = focusObject;
+                focusObject = null;
             }
         }
 
