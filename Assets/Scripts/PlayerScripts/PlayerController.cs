@@ -88,7 +88,8 @@ public class PlayerController : MonoBehaviour
             {
                 //int[] tempInventory = gameObject.GetComponent<PlayerInventory>().inventory;
                 //focusObject.GetComponent<FridgeScript>().inventoryArray = tempInventory;
-                FridgeUI.SetActive(true);
+                FridgeUI.GetComponent<FridgeScript>().openFridge();
+                //FridgeUI.SetActive(true);
             }
         }
 

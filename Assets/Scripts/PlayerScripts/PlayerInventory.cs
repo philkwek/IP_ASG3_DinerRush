@@ -19,7 +19,9 @@ public class PlayerInventory : MonoBehaviour
     public int[] inventory;
     public GameObject[] itemArray; //this array contains gameobjects of all possible items that can be held
     public bool holdingItem = false; //this ensures player can hold 1 item at a time
-    public GameObject selectedItem;
+    public GameObject selectedItem; //selected item to be held
+
+    public Transform itemSpawn; //location for item to be instantiated in player's hands 
 
     // Start is called before the first frame update
     void Start()
@@ -116,6 +118,10 @@ public class PlayerInventory : MonoBehaviour
 
             inventory = tempInventory;
 
+            selectedItem = Instantiate(selectedItem, itemSpawn.position, itemSpawn.rotation); //spawns object into hands of player
+            selectedItem.transform.parent = GameObject.Find("player_model").transform; //this ensures item is a child of playerobject
+
+
         } else if (itemIndex == 1)
         {
             Bread_Qty += 1;
@@ -153,5 +159,11 @@ public class PlayerInventory : MonoBehaviour
             inventory[itemIndex] = Beans_Qty;
 
         } 
+    }
+
+    public void placeinFridge()
+    {
+        holdingItem = false;
+        Destroy(selectedItem);
     }
 }

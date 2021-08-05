@@ -96,5 +96,25 @@ public class PlayerUIScript : MonoBehaviour
         {
             obj1_done.SetActive(true);
         }
+        else if (objective == 2)
+        {
+            obj2_done.SetActive(true);
+        }
+        else if (objective == 3)
+        {
+            obj3_done.SetActive(true);
+        }
+        else if (objective == 4)
+        {
+            obj4_done.SetActive(true);
+        }
+        else if (objective == 5)
+        {
+            obj5_done.SetActive(true);
+        }
+
+
+
+
     }
 }

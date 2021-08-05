@@ -22,6 +22,8 @@ public class RoundScript : MonoBehaviour
     public GameObject playerObject;
     public GameObject canvas;
 
+    public bool obj2_completion = false;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -70,6 +72,14 @@ public class RoundScript : MonoBehaviour
             canvas.GetComponent<PlayerUIScript>().objectiveComplete(1);
             openClipboard();
             //add notification sound to indicate objective update
+        }
+
+        if (step2 == false && obj2_completion == true)
+        { //checks for obj2 completion
+            step2 = true;
+            canvas.GetComponent<PlayerUIScript>().objectiveComplete(2);
+            openClipboard();
+            //add sound
         }
     }
 

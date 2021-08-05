@@ -5,6 +5,10 @@ using TMPro;
 
 public class FridgeScript : MonoBehaviour
 {
+    private bool objective2 = false;
+
+    public GameObject fridgeUI;
+    public Animator fridge;
     public GameObject playerObject;
     public GameObject storeButton;
     public int[] inventoryArray;
@@ -34,10 +38,35 @@ public class FridgeScript : MonoBehaviour
     {
         
     }
+    void enableFridgeUI()
+    {
+        fridgeUI.SetActive(true);
+    }
+
+    public void openFridge()
+    {
+        fridge.SetBool("fridge_open", true);
+        Invoke("enableFridgeUI", 1.0f);
+    }
+
+    public void closeFridge()
+    {
+        fridge.SetBool("fridge_open", false);
+    }
 
     public void placeFood()
     {
-        playerObject.GetComponent<PlayerInventory>().holdingItem = false;
+        if (objective2 == false && playerObject.GetComponent<PlayerInventory>().inventory != null)
+        {
+            objective2 = true;
+            var gamecontroller = GameObject.Find("GameController");
+            gamecontroller.GetComponent<RoundScript>().obj2_completion = true;
+        } //obj2 update code
+
+        if (playerObject.GetComponent<PlayerInventory>().holdingItem == true)
+        {
+            playerObject.GetComponent<PlayerInventory>().placeinFridge();
+        } //for when player wants to put food back into fridge
 
         inventoryArray = playerObject.GetComponent<PlayerInventory>().inventory;
         Beef_Qty += inventoryArray[0];
