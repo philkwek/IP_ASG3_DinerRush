@@ -40,7 +40,7 @@ public class RoundScript : MonoBehaviour
             round_1_objective.SetActive(true);
             Spawner.gameObject.GetComponent<SpawnNPCScript>().max_npc = 4;
             Spawner.gameObject.GetComponent<SpawnNPCScript>().roundNumber = SceneIndex;
-            Spawner.SetActive(true);
+            //Spawner.SetActive(true);
             //Spawner.Spawn();
             //sets appropirate objective for the round and sets parameters for NPC spawning
 

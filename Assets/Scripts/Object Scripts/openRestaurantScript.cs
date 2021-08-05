@@ -9,7 +9,11 @@ public class openRestaurantScript : MonoBehaviour
 
     public void openDoors()
     {
-        gameController.GetComponent<RoundScript>().obj3_completion = true;
-        spawner.SetActive(true);
+        if (gameController.GetComponent<RoundScript>().step1 == true && gameController.GetComponent<RoundScript>().step2 == true)
+        {
+            gameController.GetComponent<RoundScript>().obj3_completion = true;
+            spawner.SetActive(true);
+        }
+        
     }
 }

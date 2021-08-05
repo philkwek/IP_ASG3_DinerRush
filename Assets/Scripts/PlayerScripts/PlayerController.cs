@@ -91,6 +91,11 @@ public class PlayerController : MonoBehaviour
                 FridgeUI.GetComponent<FridgeScript>().openFridge();
                 //FridgeUI.SetActive(true);
             }
+
+            if (focusObject.transform.tag == "RestaurantOpen")
+            {
+                focusObject.GetComponent<openRestaurantScript>().openDoors();
+            }
         }
 
     }

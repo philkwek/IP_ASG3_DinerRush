@@ -9,6 +9,7 @@ TagManager:
   - Minimart_Target
   - Merchant_AI
   - Fridge
+  - RestaurantOpen
   layers:
   - Default
   - TransparentFX

@@ -73,7 +73,8 @@ public class SpawnNPCScript : MonoBehaviour
                 NPC.GetComponent<customer_npc>().assignedOrder = order;
                 NPC.GetComponent<customer_npc>().orderText = orderText;
 
-            } else if (npc_number == 2)
+            }
+            else if (npc_number == 2)
             {
                 int[] order =
                 {
@@ -83,7 +84,8 @@ public class SpawnNPCScript : MonoBehaviour
                 NPC.GetComponent<customer_npc>().assignedOrder = order;
                 NPC.GetComponent<customer_npc>().orderText = orderText;
 
-            } else if (npc_number == 3)
+            }
+            else if (npc_number == 3)
             {
                 int[] order =
                 {
@@ -107,8 +109,158 @@ public class SpawnNPCScript : MonoBehaviour
 
             }
         }
-        
-        //newNPC.
+        else if (roundNumber == 2)
+        {
+            npc_number += 1;
+            nextSpawnTime = Time.time + spawnDelay;
+            var spawnNPC = Instantiate(npcPrefab, SpawnLocation.position, SpawnLocation.rotation);
+            NPC = spawnNPC.transform.Find("NavMesh").gameObject;
+            if (npc_number == 1) //individual orders assigned to each npc 
+            {
+                int[] order =
+                {
+                    0,
+                    3,
+                };
+                string orderText = "Beef Steak & Egg";
+                NPC.GetComponent<customer_npc>().assignedOrder = order;
+                NPC.GetComponent<customer_npc>().orderText = orderText;
+
+            }
+            else if (npc_number == 2)
+            {
+                int[] order =
+                {
+                    3,
+                    5,
+                };
+                string orderText = "Eggs & Sausage";
+                NPC.GetComponent<customer_npc>().assignedOrder = order;
+                NPC.GetComponent<customer_npc>().orderText = orderText;
+
+            }
+            else if (npc_number == 3)
+            {
+                int[] order =
+                {
+                    1,
+                    3,
+                };
+                string orderText = "Toast & Eggs";
+                NPC.GetComponent<customer_npc>().assignedOrder = order;
+                NPC.GetComponent<customer_npc>().orderText = orderText;
+
+            }
+            else if (npc_number == 4)
+            {
+                int[] order =
+                {
+                    0,
+                    2,
+                };
+                string orderText = "Beef Steak & Corn";
+                NPC.GetComponent<customer_npc>().assignedOrder = order;
+                NPC.GetComponent<customer_npc>().orderText = orderText;
+
+            }
+            else if (npc_number == 5)
+            {
+                int[] order =
+               {
+                    1,
+                    3,
+                    5,
+                };
+                string orderText = "Toast, egg & Sausage";
+                NPC.GetComponent<customer_npc>().assignedOrder = order;
+                NPC.GetComponent<customer_npc>().orderText = orderText;
+
+            }
+        }
+        else if (roundNumber == 3)
+        {
+            npc_number += 1;
+            nextSpawnTime = Time.time + spawnDelay;
+            var spawnNPC = Instantiate(npcPrefab, SpawnLocation.position, SpawnLocation.rotation);
+            NPC = spawnNPC.transform.Find("NavMesh").gameObject;
+            if (npc_number == 1) //individual orders assigned to each npc 
+            {
+                int[] order =
+                {
+                    5,
+                    6,
+                };
+                string orderText = "Sausage & Baked Beans";
+                NPC.GetComponent<customer_npc>().assignedOrder = order;
+                NPC.GetComponent<customer_npc>().orderText = orderText;
+
+            }
+            else if (npc_number == 2)
+            {
+                int[] order =
+                {
+                    1,
+                    3,
+                };
+                string orderText = "Toast & Eggs";
+                NPC.GetComponent<customer_npc>().assignedOrder = order;
+                NPC.GetComponent<customer_npc>().orderText = orderText;
+
+            }
+            else if (npc_number == 3)
+            {
+                int[] order =
+                {
+                    0,
+                    3,
+                };
+                string orderText = "Beef Steak & Eggs";
+                NPC.GetComponent<customer_npc>().assignedOrder = order;
+                NPC.GetComponent<customer_npc>().orderText = orderText;
+
+            }
+            else if (npc_number == 4)
+            {
+                int[] order =
+                {
+                    0,
+                    2,
+                };
+                string orderText = "Beef Steak & Corn";
+                NPC.GetComponent<customer_npc>().assignedOrder = order;
+                NPC.GetComponent<customer_npc>().orderText = orderText;
+
+            }
+            else if (npc_number == 5)
+            {
+                int[] order =
+               {
+                    3,
+                    5,
+                };
+                string orderText = "Eggs & Sausage";
+                NPC.GetComponent<customer_npc>().assignedOrder = order;
+                NPC.GetComponent<customer_npc>().orderText = orderText;
+
+            }
+            else if (npc_number == 6)
+            {
+                int[] order =
+               {
+                    0,
+                    5,
+                };
+                string orderText = "Beef Steak & Sausage";
+                NPC.GetComponent<customer_npc>().assignedOrder = order;
+                NPC.GetComponent<customer_npc>().orderText = orderText;
+
+            }
+
+            //newNPC.
+        } else if (roundNumber == 4)
+        {
+            //code gordon ramsey
+        }
     }
 
     public void SpawnRamsey()
