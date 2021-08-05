@@ -22,6 +22,9 @@ public class SpawnNPCScript : MonoBehaviour
 
     public int npc_number;
     public int max_npc; // variable to be set by roundscript
+    public int roundNumber;
+
+    public GameObject NPC;
 
     //private Player activeNPC;
 
@@ -54,9 +57,57 @@ public class SpawnNPCScript : MonoBehaviour
 
     private void Spawn() //this function handles the spawn of NPC object
     {
-        npc_number += 1;
-        nextSpawnTime = Time.time + spawnDelay;
-        Instantiate(npcPrefab, SpawnLocation.position, SpawnLocation.rotation);
+        if (roundNumber == 1) //code for NPCs spawning in round 1
+        {
+            npc_number += 1;
+            nextSpawnTime = Time.time + spawnDelay;
+            var spawnNPC = Instantiate(npcPrefab, SpawnLocation.position, SpawnLocation.rotation);
+            NPC = spawnNPC.transform.Find("NavMesh").gameObject;
+            if (npc_number == 1) //individual orders assigned to each npc 
+            {
+                int[] order =
+                {
+                    0,
+                };
+                string orderText = "Beef Steak";
+                NPC.GetComponent<customer_npc>().assignedOrder = order;
+                NPC.GetComponent<customer_npc>().orderText = orderText;
+
+            } else if (npc_number == 2)
+            {
+                int[] order =
+                {
+                    3,
+                };
+                string orderText = "Eggs";
+                NPC.GetComponent<customer_npc>().assignedOrder = order;
+                NPC.GetComponent<customer_npc>().orderText = orderText;
+
+            } else if (npc_number == 3)
+            {
+                int[] order =
+                {
+                    1,
+                };
+                string orderText = "Toast";
+                NPC.GetComponent<customer_npc>().assignedOrder = order;
+                NPC.GetComponent<customer_npc>().orderText = orderText;
+
+            }
+            else if (npc_number == 4)
+            {
+                int[] order =
+                {
+                    3,
+                    5,
+                };
+                string orderText = "Eggs and Sausage";
+                NPC.GetComponent<customer_npc>().assignedOrder = order;
+                NPC.GetComponent<customer_npc>().orderText = orderText;
+
+            }
+        }
+        
         //newNPC.
     }
 

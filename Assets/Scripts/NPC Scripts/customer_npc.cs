@@ -13,6 +13,9 @@ public class customer_npc : MonoBehaviour
     public GameObject[] AI_targets_face;// Array of all target position for AI to face once seat is reached
     public GameObject[] NPC_Model; //Array of the 2 NPC models for use
 
+    public int[] assignedOrder; //assigned order by spawner (unique to each NPC)
+    public string orderText; //order text
+
     private int target_index;
     private int npc_model;
 
@@ -21,6 +24,7 @@ public class customer_npc : MonoBehaviour
 
     private void Awake()
     {
+
         AI_targets[0] = GameObject.Find("AiTarget_0");
         AI_targets[1] = GameObject.Find("AiTarget_1");
         AI_targets[2] = GameObject.Find("AiTarget_2");

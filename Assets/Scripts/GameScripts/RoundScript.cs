@@ -7,10 +7,15 @@ public class RoundScript : MonoBehaviour
 {
     public GameObject FadeScene;
 
+    public int SceneIndex;
+
     public bool step1 = false; //these are used to tell the roundscript that an objective has been completed
     public bool step2 = false;
     public bool step3 = false;
     public bool step4 = false;
+
+    public bool obj2_completion = false;
+    public bool obj3_completion = false;
 
     public GameObject round_1_objective;
     public GameObject round_2_objective;
@@ -22,12 +27,11 @@ public class RoundScript : MonoBehaviour
     public GameObject playerObject;
     public GameObject canvas;
 
-    public bool obj2_completion = false;
-
+    
     // Start is called before the first frame update
     private void Awake()
     {
-        var SceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneIndex = SceneManager.GetActiveScene().buildIndex;
         canvas.GetComponent<PlayerUIScript>().RoundIndex = SceneIndex;
         playerObject.GetComponent<PlayerInventory>().RoundIndex = SceneIndex;
 
@@ -35,6 +39,9 @@ public class RoundScript : MonoBehaviour
         {
             round_1_objective.SetActive(true);
             Spawner.gameObject.GetComponent<SpawnNPCScript>().max_npc = 4;
+            Spawner.gameObject.GetComponent<SpawnNPCScript>().roundNumber = SceneIndex;
+            Spawner.SetActive(true);
+            //Spawner.Spawn();
             //sets appropirate objective for the round and sets parameters for NPC spawning
 
         }
@@ -42,17 +49,23 @@ public class RoundScript : MonoBehaviour
         {
             round_2_objective.SetActive(true);
             Spawner.gameObject.GetComponent<SpawnNPCScript>().max_npc = 5;
+            Spawner.gameObject.GetComponent<SpawnNPCScript>().roundNumber = SceneIndex;
+            Spawner.SetActive(true);
 
         } else if (SceneIndex == 3)
         {
             round_3_objective.SetActive(true);
             Spawner.gameObject.GetComponent<SpawnNPCScript>().max_npc = 6;
+            Spawner.gameObject.GetComponent<SpawnNPCScript>().roundNumber = SceneIndex;
+            Spawner.SetActive(true);
 
         } else if (SceneIndex == 4)
         {
             round_4_objective.SetActive(true);
             Spawner.gameObject.GetComponent<SpawnNPCScript>().max_npc = 0;
-            Spawner.gameObject.GetComponent<SpawnNPCScript>().SpawnRamsey();
+            Spawner.gameObject.GetComponent<SpawnNPCScript>().roundNumber = SceneIndex;
+            Spawner.SetActive(true);
+            //Spawner.gameObject.GetComponent<SpawnNPCScript>().SpawnRamsey();
 
         }
     }
@@ -80,6 +93,14 @@ public class RoundScript : MonoBehaviour
             canvas.GetComponent<PlayerUIScript>().objectiveComplete(2);
             openClipboard();
             //add sound
+        }
+
+        if (step3 == false && obj3_completion == true)
+        { //objective 3 completion check
+            step3 = true;
+            canvas.GetComponent<PlayerUIScript>().objectiveComplete(3);
+            openClipboard();
+            Spawner.SetActive(true);
         }
     }
 

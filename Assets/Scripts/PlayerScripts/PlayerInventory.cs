@@ -36,7 +36,7 @@ public class PlayerInventory : MonoBehaviour
         {
             if (RoundIndex == 1)
             {
-                if (Beef_Qty >= 1 && Egg_Qty >= 2 && Bread_Qty >= 1)
+                if (Beef_Qty >= 1 && Egg_Qty >= 2 && Bread_Qty >= 1 && Sausage_Qty >= 1) 
                 {
                     int[] tempInventory = {Beef_Qty, Bread_Qty, Corn_Qty, Egg_Qty, Potato_Qty,
                     Sausage_Qty, Beans_Qty};
