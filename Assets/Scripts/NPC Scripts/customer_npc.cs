@@ -17,6 +17,7 @@ public class customer_npc : MonoBehaviour
     public string orderText; //order text
 
     public bool ordered = false;
+    public bool order_received = false;
 
     public bool orderTimer = false;
     public bool timerStart = false;
@@ -125,25 +126,31 @@ public class customer_npc : MonoBehaviour
         bool disappointed = false;
         bool angry = false;
 
-        if (currentTime > 0)
+        if (order_received != true)
         {
-            currentTime -= 1 * Time.deltaTime;
+            if (currentTime > 0)
+            {
+                currentTime -= 1 * Time.deltaTime;
 
-        }
+            }
 
-        if (currentTime < 61 && disappointed == false) //for when there is 1 minute left in the timer
+            if (currentTime < 61 && disappointed == false) //for when there is 1 minute left in the timer
+            {
+                gameObject.GetComponent<npcMoodScript>().disappointedAlert();
+                disappointed = true;
+
+            }
+
+            if (currentTime <= 0 && angry == false)
+            {
+
+                angry = true;
+                gameObject.GetComponent<npcMoodScript>().angryAlert();
+                LeaveRestaurant();
+            }
+        } else
         {
-            gameObject.GetComponent<npcMoodScript>().disappointedAlert();
-            disappointed = true;
-
-        }
-
-        if (currentTime <= 0 && angry == false)
-        {
-
-            angry = true;
-            gameObject.GetComponent<npcMoodScript>().angryAlert();
-            LeaveRestaurant();
+            //run code for when order is received
         }
     }
 

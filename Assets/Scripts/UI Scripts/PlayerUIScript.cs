@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerUIScript : MonoBehaviour
 {
@@ -19,6 +20,12 @@ public class PlayerUIScript : MonoBehaviour
     public GameObject obj3_done;
     public GameObject obj4_done;
     public GameObject obj5_done;
+
+    public Image[] itemIndicators;
+    private Image uiUse;
+    public GameObject alertParent;
+    public Transform indicatorSpawn;
+
 
     private void Awake()
     {
@@ -78,6 +85,30 @@ public class PlayerUIScript : MonoBehaviour
     void Update()
     {
         transform.SetAsLastSibling();
+
+        if (uiUse != null)
+        {
+            uiUse.transform.position = Camera.main.WorldToScreenPoint(indicatorSpawn.position);
+        }
+    }
+
+    public void holdIndicator(int itemIndex)
+    {
+        if (itemIndex == 0) //beef indicator code
+        {
+            if (uiUse != null)
+            {
+                Destroy(uiUse);
+            }
+            Debug.Log("Spawning indicator");
+            uiUse = Instantiate(itemIndicators[itemIndex], FindObjectOfType<Canvas>().transform).GetComponent<Image>();
+            uiUse.transform.parent = alertParent.transform;
+        }
+    }
+
+    public void destroyIndicator()
+    {
+        Destroy(uiUse);
     }
 
     public void clipboardToggle()

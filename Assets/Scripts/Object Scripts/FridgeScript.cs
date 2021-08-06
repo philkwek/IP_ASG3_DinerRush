@@ -7,6 +7,7 @@ public class FridgeScript : MonoBehaviour
 {
     private bool objective2 = false;
 
+    public GameObject gameManager;
     public GameObject fridgeUI;
     public Animator fridge;
     public GameObject playerObject;
@@ -56,7 +57,8 @@ public class FridgeScript : MonoBehaviour
 
     public void placeFood()
     {
-        if (objective2 == false && playerObject.GetComponent<PlayerInventory>().inventory != null)
+        if (objective2 == false && playerObject.GetComponent<PlayerInventory>().inventory != null
+            && gameManager.GetComponent<RoundScript>().step1 == true)
         {
             objective2 = true;
             var gamecontroller = GameObject.Find("GameController");
@@ -68,25 +70,29 @@ public class FridgeScript : MonoBehaviour
             playerObject.GetComponent<PlayerInventory>().placeinFridge();
         } //for when player wants to put food back into fridge
 
-        inventoryArray = playerObject.GetComponent<PlayerInventory>().inventory;
-        Beef_Qty += inventoryArray[0];
-        Bread_Qty += inventoryArray[1];
-        Corn_Qty += inventoryArray[2];
-        Egg_Qty += inventoryArray[3];
-        Potato_Qty += inventoryArray[4];
-        Sausage_Qty += inventoryArray[5];
-        Beans_Qty += inventoryArray[6];
+        if (playerObject.GetComponent<PlayerInventory>().inventory != null)
+        {
+            inventoryArray = playerObject.GetComponent<PlayerInventory>().inventory;
+            Beef_Qty += inventoryArray[0];
+            Bread_Qty += inventoryArray[1];
+            Corn_Qty += inventoryArray[2];
+            Egg_Qty += inventoryArray[3];
+            Potato_Qty += inventoryArray[4];
+            Sausage_Qty += inventoryArray[5];
+            Beans_Qty += inventoryArray[6];
+
+            qty_text[0].text = "x" + Beef_Qty.ToString();
+            qty_text[1].text = "x" + Bread_Qty.ToString();
+            qty_text[2].text = "x" + Corn_Qty.ToString();
+            qty_text[3].text = "x" + Egg_Qty.ToString();
+            qty_text[4].text = "x" + Potato_Qty.ToString();
+            qty_text[5].text = "x" + Sausage_Qty.ToString();
+            qty_text[6].text = "x" + Beans_Qty.ToString();
+        }
+        
         //storeButton.SetActive(false);
 
         playerObject.GetComponent<PlayerInventory>().ResetInventory();
-
-        qty_text[0].text = "x" + Beef_Qty.ToString();
-        qty_text[1].text = "x" + Bread_Qty.ToString();
-        qty_text[2].text = "x" + Corn_Qty.ToString();
-        qty_text[3].text = "x" + Egg_Qty.ToString();
-        qty_text[4].text = "x" + Potato_Qty.ToString();
-        qty_text[5].text = "x" + Sausage_Qty.ToString();
-        qty_text[6].text = "x" + Beans_Qty.ToString();
     }
 
     public void takeBeef()
