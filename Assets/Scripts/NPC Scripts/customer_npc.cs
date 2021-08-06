@@ -13,14 +13,33 @@ public class customer_npc : MonoBehaviour
     public GameObject[] AI_targets_face;// Array of all target position for AI to face once seat is reached
     public GameObject[] NPC_Model; //Array of the 2 NPC models for use
 
+    public int[] assignedOrder; //assigned order by spawner (unique to each NPC)
+    public string orderText; //order text
+
+    public bool ordered = false;
+    public bool order_received = false;
+
+    public bool orderTimer = false;
+    public bool timerStart = false;
+    public bool orderStart = false;
+    public bool attendOrder = false;
+
+    public float currentTime = 0f;
+    public float startingTime = 120f;
+    public float orderTime = 0f;
+    public float orderStarting_time = 50f;
+
     private int target_index;
     private int npc_model;
 
     private GameObject spawnObject;
     private GameObject leaveObject;
 
+    public GameObject canvas;
+
     private void Awake()
     {
+
         AI_targets[0] = GameObject.Find("AiTarget_0");
         AI_targets[1] = GameObject.Find("AiTarget_1");
         AI_targets[2] = GameObject.Find("AiTarget_2");
@@ -53,6 +72,8 @@ public class customer_npc : MonoBehaviour
 
         spawnObject = GameObject.Find("NPC_Spawn");
         leaveObject = GameObject.Find("NPC_Leave");
+
+        canvas = GameObject.Find("Canvas");
     }
 
     // Start is called before the first frame update
@@ -62,6 +83,9 @@ public class customer_npc : MonoBehaviour
         agent = GetComponent<NavMeshAgent>(); // gets gameobject's navmesh agent for use
         //MoveToPoint(target.position);
         RandomizeTarget();
+
+        currentTime = startingTime;
+        orderTime = orderStarting_time;
     }
 
     private void Update()
@@ -70,6 +94,80 @@ public class customer_npc : MonoBehaviour
         {
             //Debug.Log("Turning");
             FaceTarget();
+        }
+
+        if (timerStart == true)
+        {
+            startTimer();
+            Debug.Log(currentTime.ToString("0"));
+        }
+
+        if (orderStart == true)
+        {
+            startOrder();
+        }
+    }
+
+    public void interactOrder() //function that runs from playercontroller, opens order menu
+    {
+        attendOrder = true;
+        if (ordered == false)
+        {
+            canvas.GetComponent<orderScript>().orderText = orderText;
+            canvas.GetComponent<orderScript>().assignedOrder = assignedOrder;
+            canvas.GetComponent<orderScript>().orderMenuOpen();
+            ordered = true;
+        }
+        
+    }
+
+    public void startTimer()
+    {
+        bool disappointed = false;
+        bool angry = false;
+
+        if (order_received != true)
+        {
+            if (currentTime > 0)
+            {
+                currentTime -= 1 * Time.deltaTime;
+
+            }
+
+            if (currentTime < 61 && disappointed == false) //for when there is 1 minute left in the timer
+            {
+                gameObject.GetComponent<npcMoodScript>().disappointedAlert();
+                disappointed = true;
+
+            }
+
+            if (currentTime <= 0 && angry == false)
+            {
+
+                angry = true;
+                gameObject.GetComponent<npcMoodScript>().angryAlert();
+                LeaveRestaurant();
+            }
+        } else
+        {
+            //run code for when order is received
+        }
+    }
+
+    public void startOrder()
+    {
+        Debug.Log("Started Order wait timer");
+        bool angry = false;
+
+        if (orderTime > 0 && attendOrder == false)
+        {
+            orderTime -= 1 * Time.deltaTime; ;
+
+        } else if (orderTime <= 0 && angry == false)
+        {
+            angry = true;
+            gameObject.GetComponent<npcMoodScript>().angryAlert();
+            LeaveRestaurant();
         }
     }
 

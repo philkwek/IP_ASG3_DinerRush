@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerUIScript : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class PlayerUIScript : MonoBehaviour
 
     public Animator clipboard;
     public bool clipboard_toggle = false;
+
+    public Animator order;
+    public bool order_toggle = false;
 
     public int RoundIndex;
     public GameObject parentObject;
@@ -17,21 +21,37 @@ public class PlayerUIScript : MonoBehaviour
     public GameObject obj4_done;
     public GameObject obj5_done;
 
+    public Image[] itemIndicators;
+    private Image uiUse;
+    public GameObject alertParent;
+    public Transform indicatorSpawn;
+
+
     private void Awake()
     {
+        
+        
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
         if (RoundIndex == 1 || RoundIndex == 2 || RoundIndex == 3)
         {
             if (RoundIndex == 1)
             {
                 parentObject = GameObject.Find("day1_morning");
-            } else if (RoundIndex == 2)
+            }
+            else if (RoundIndex == 2)
             {
                 parentObject = GameObject.Find("day2_morning");
-            } else if (RoundIndex == 3)
+            }
+            else if (RoundIndex == 3)
             {
                 parentObject = GameObject.Find("day3_morning");
             }
-            
+
             obj1_done = parentObject.transform.Find("obj1_done").gameObject;
             obj2_done = parentObject.transform.Find("obj2_done").gameObject;
             obj3_done = parentObject.transform.Find("obj3_done").gameObject;
@@ -44,7 +64,8 @@ public class PlayerUIScript : MonoBehaviour
             obj4_done.SetActive(false);
             obj5_done.SetActive(false);
 
-        } else if (RoundIndex == 4)
+        }
+        else if (RoundIndex == 4)
         {
             parentObject = GameObject.Find("day4_morning");
 
@@ -58,18 +79,36 @@ public class PlayerUIScript : MonoBehaviour
             obj3_done.SetActive(false);
             obj4_done.SetActive(false);
         }
-        
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        transform.SetAsLastSibling();
+
+        if (uiUse != null)
+        {
+            uiUse.transform.position = Camera.main.WorldToScreenPoint(indicatorSpawn.position);
+        }
+    }
+
+    public void holdIndicator(int itemIndex)
+    {
+        if (itemIndex == 0) //beef indicator code
+        {
+            if (uiUse != null)
+            {
+                Destroy(uiUse);
+            }
+            Debug.Log("Spawning indicator");
+            uiUse = Instantiate(itemIndicators[itemIndex], FindObjectOfType<Canvas>().transform).GetComponent<Image>();
+            uiUse.transform.parent = alertParent.transform;
+        }
+    }
+
+    public void destroyIndicator()
+    {
+        Destroy(uiUse);
     }
 
     public void clipboardToggle()
@@ -85,11 +124,44 @@ public class PlayerUIScript : MonoBehaviour
         }
     }
 
+    public void orderToggle()
+    {
+        if (order_toggle == false)
+        {
+            order.SetBool("toggle_orders", true);
+            order_toggle = true;
+        } else
+        {
+            order.SetBool("toggle_orders", false);
+            order_toggle = false;
+        }
+    }
+
     public void objectiveComplete(int objective)
     {
         if (objective == 1)
         {
             obj1_done.SetActive(true);
         }
+        else if (objective == 2)
+        {
+            obj2_done.SetActive(true);
+        }
+        else if (objective == 3)
+        {
+            obj3_done.SetActive(true);
+        }
+        else if (objective == 4)
+        {
+            obj4_done.SetActive(true);
+        }
+        else if (objective == 5)
+        {
+            obj5_done.SetActive(true);
+        }
+
+
+
+
     }
 }
