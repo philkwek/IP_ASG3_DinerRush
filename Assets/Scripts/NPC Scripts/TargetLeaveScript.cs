@@ -31,6 +31,7 @@ public class TargetLeaveScript : MonoBehaviour
             NPC = other.gameObject;
 
             NPC.GetComponent<npcMoodScript>().orderAlert();
+            NPC.GetComponent<customer_npc>().orderStart = true;
 
             //Invoke("leaveFunction", 5.0f); // temporary function to test leaving script
         }

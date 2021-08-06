@@ -77,7 +77,7 @@ public class PlayerUIScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.SetAsLastSibling();
     }
 
     public void clipboardToggle()

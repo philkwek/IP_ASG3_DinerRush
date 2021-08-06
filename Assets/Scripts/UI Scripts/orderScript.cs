@@ -41,37 +41,42 @@ public class orderScript : MonoBehaviour
             customer1_text = true;
             customer1.text = orderText;
             npcMood.gameObject.GetComponent<npcMoodScript>().offAlert();
-            //put code here to start NPC's timer
+            npcMood.gameObject.GetComponent<customer_npc>().timerStart = true;
 
         } else if (customer2_text == false)
         {
             customer2_text = true;
             customer2.text = orderText;
             npcMood.gameObject.GetComponent<npcMoodScript>().offAlert();
+            npcMood.gameObject.GetComponent<customer_npc>().timerStart = true;
 
         } else if (customer3_text == false)
         {
             customer3_text = true;
             customer3.text = orderText;
             npcMood.gameObject.GetComponent<npcMoodScript>().offAlert();
+            npcMood.gameObject.GetComponent<customer_npc>().timerStart = true;
 
         } else if (customer4_text == false)
         {
             customer4_text = true;
             customer4.text = orderText;
             npcMood.gameObject.GetComponent<npcMoodScript>().offAlert();
+            npcMood.gameObject.GetComponent<customer_npc>().timerStart = true;
 
         } else if (customer5_text == false)
         {
             customer5_text = true;
             customer5.text = orderText;
             npcMood.gameObject.GetComponent<npcMoodScript>().offAlert();
+            npcMood.gameObject.GetComponent<customer_npc>().timerStart = true;
 
         } else if (customer6_text == false)
         {
             customer6_text = true;
             customer6.text = orderText;
             npcMood.gameObject.GetComponent<npcMoodScript>().offAlert();
+            npcMood.gameObject.GetComponent<customer_npc>().timerStart = true;
 
         }
     }

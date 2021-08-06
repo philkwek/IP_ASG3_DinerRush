@@ -16,6 +16,18 @@ public class customer_npc : MonoBehaviour
     public int[] assignedOrder; //assigned order by spawner (unique to each NPC)
     public string orderText; //order text
 
+    public bool ordered = false;
+
+    public bool orderTimer = false;
+    public bool timerStart = false;
+    public bool orderStart = false;
+    public bool attendOrder = false;
+
+    public float currentTime = 0f;
+    public float startingTime = 120f;
+    public float orderTime = 0f;
+    public float orderStarting_time = 50f;
+
     private int target_index;
     private int npc_model;
 
@@ -70,6 +82,9 @@ public class customer_npc : MonoBehaviour
         agent = GetComponent<NavMeshAgent>(); // gets gameobject's navmesh agent for use
         //MoveToPoint(target.position);
         RandomizeTarget();
+
+        currentTime = startingTime;
+        orderTime = orderStarting_time;
     }
 
     private void Update()
@@ -79,13 +94,74 @@ public class customer_npc : MonoBehaviour
             //Debug.Log("Turning");
             FaceTarget();
         }
+
+        if (timerStart == true)
+        {
+            startTimer();
+            Debug.Log(currentTime.ToString("0"));
+        }
+
+        if (orderStart == true)
+        {
+            startOrder();
+        }
     }
 
     public void interactOrder() //function that runs from playercontroller, opens order menu
     {
-        canvas.GetComponent<orderScript>().orderText = orderText;
-        canvas.GetComponent<orderScript>().assignedOrder = assignedOrder;
-        canvas.GetComponent<orderScript>().orderMenuOpen();
+        attendOrder = true;
+        if (ordered == false)
+        {
+            canvas.GetComponent<orderScript>().orderText = orderText;
+            canvas.GetComponent<orderScript>().assignedOrder = assignedOrder;
+            canvas.GetComponent<orderScript>().orderMenuOpen();
+            ordered = true;
+        }
+        
+    }
+
+    public void startTimer()
+    {
+        bool disappointed = false;
+        bool angry = false;
+
+        if (currentTime > 0)
+        {
+            currentTime -= 1 * Time.deltaTime;
+
+        }
+
+        if (currentTime < 61 && disappointed == false) //for when there is 1 minute left in the timer
+        {
+            gameObject.GetComponent<npcMoodScript>().disappointedAlert();
+            disappointed = true;
+
+        }
+
+        if (currentTime <= 0 && angry == false)
+        {
+
+            angry = true;
+            gameObject.GetComponent<npcMoodScript>().angryAlert();
+            LeaveRestaurant();
+        }
+    }
+
+    public void startOrder()
+    {
+        Debug.Log("Started Order wait timer");
+        bool angry = false;
+
+        if (orderTime > 0 && attendOrder == false)
+        {
+            orderTime -= 1 * Time.deltaTime; ;
+
+        } else if (orderTime <= 0 && angry == false)
+        {
+            angry = true;
+            gameObject.GetComponent<npcMoodScript>().angryAlert();
+            LeaveRestaurant();
+        }
     }
 
     public void RandomizeNPC() //this function randomely chooses a NPC Model to use
