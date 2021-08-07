@@ -104,6 +104,12 @@ public class PlayerController : MonoBehaviour
                 canvas.GetComponent<orderScript>().npcMood = focusObject;
                 focusObject = null;
             }
+
+            if (focusObject.transform.tag == "FryingPan")
+            {
+                Debug.Log("Frying Pan script running");
+                focusObject.GetComponent<fryingpanScript>().openCookUI();
+            }
         }
 
     }

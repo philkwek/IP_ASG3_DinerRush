@@ -20,6 +20,7 @@ public class PlayerInventory : MonoBehaviour
     public GameObject[] itemArray; //this array contains gameobjects of all possible items that can be held
     public bool holdingItem = false; //this ensures player can hold 1 item at a time
     public GameObject selectedItem; //selected item to be held
+    public int itemNumber;
 
     public Transform itemSpawn;
 
@@ -95,6 +96,7 @@ public class PlayerInventory : MonoBehaviour
         //this functions gets the index of item that should be held 
     {
         holdingItem = true;
+        itemNumber = itemIndex;
 
         if (itemIndex == 0) //checks for what item is being requested to be held
         {
@@ -191,6 +193,13 @@ public class PlayerInventory : MonoBehaviour
     }
 
     public void placeinFridge()
+    {
+        holdingItem = false;
+        Destroy(selectedItem);
+        canvas.GetComponent<PlayerUIScript>().destroyIndicator();
+    }
+
+    public void placeonPan()
     {
         holdingItem = false;
         Destroy(selectedItem);

@@ -22,7 +22,7 @@ public class PlayerUIScript : MonoBehaviour
     public GameObject obj5_done;
 
     public Image[] itemIndicators;
-    private Image uiUse;
+    [SerializeField] private Image uiUse;
     public GameObject alertParent;
     public Transform indicatorSpawn;
 
@@ -103,6 +103,67 @@ public class PlayerUIScript : MonoBehaviour
             Debug.Log("Spawning indicator");
             uiUse = Instantiate(itemIndicators[itemIndex], FindObjectOfType<Canvas>().transform).GetComponent<Image>();
             uiUse.transform.parent = alertParent.transform;
+
+        } else if (itemIndex == 1) //bread indicator code
+        {
+            if (uiUse != null)
+            {
+                Destroy(uiUse);
+            }
+            Debug.Log("Spawning indicator");
+            uiUse = Instantiate(itemIndicators[itemIndex], FindObjectOfType<Canvas>().transform).GetComponent<Image>();
+            uiUse.transform.parent = alertParent.transform;
+
+        } else if (itemIndex == 2) //corn indicator code
+        {
+            if (uiUse != null)
+            {
+                Destroy(uiUse);
+            }
+            Debug.Log("Spawning indicator");
+            uiUse = Instantiate(itemIndicators[itemIndex], FindObjectOfType<Canvas>().transform).GetComponent<Image>();
+            uiUse.transform.parent = alertParent.transform;
+
+        } else if (itemIndex == 3) //Egg indicator code
+        {
+            if (uiUse != null)
+            {
+                Destroy(uiUse);
+            }
+            Debug.Log("Spawning indicator");
+            uiUse = Instantiate(itemIndicators[itemIndex], FindObjectOfType<Canvas>().transform).GetComponent<Image>();
+            uiUse.transform.parent = alertParent.transform;
+
+        } else if (itemIndex == 4) //Potato indicator code
+        {
+            if (uiUse != null)
+            {
+                Destroy(uiUse);
+            }
+            Debug.Log("Spawning indicator");
+            uiUse = Instantiate(itemIndicators[itemIndex], FindObjectOfType<Canvas>().transform).GetComponent<Image>();
+            uiUse.transform.parent = alertParent.transform;
+
+        } else if (itemIndex == 5) //Sausage indicator code
+        {
+            if (uiUse != null)
+            {
+                Destroy(uiUse);
+            }
+            Debug.Log("Spawning indicator");
+            uiUse = Instantiate(itemIndicators[itemIndex], FindObjectOfType<Canvas>().transform).GetComponent<Image>();
+            uiUse.transform.parent = alertParent.transform;
+
+        } else if (itemIndex == 6) //Beans indicator code
+        {
+            if (uiUse != null)
+            {
+                Destroy(uiUse);
+            }
+            Debug.Log("Spawning indicator");
+            uiUse = Instantiate(itemIndicators[itemIndex], FindObjectOfType<Canvas>().transform).GetComponent<Image>();
+            uiUse.transform.parent = alertParent.transform;
+
         }
     }
 
