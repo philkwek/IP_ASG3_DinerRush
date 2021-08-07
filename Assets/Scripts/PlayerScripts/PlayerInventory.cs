@@ -103,7 +103,6 @@ public class PlayerInventory : MonoBehaviour
             Beef_Qty += 1;
 
             selectedItem = Instantiate(itemArray[itemIndex], itemSpawn.position, itemSpawn.rotation);
-            //var spawnNPC = Instantiate(npcPrefab, SpawnLocation.position, SpawnLocation.rotation);
             selectedItem.transform.parent = itemSpawn.transform;
             int[] tempInventory = {Beef_Qty, Bread_Qty, Corn_Qty, Egg_Qty, Potato_Qty,
                     Sausage_Qty, Beans_Qty};
@@ -117,7 +116,6 @@ public class PlayerInventory : MonoBehaviour
             Bread_Qty += 1;
 
             selectedItem = Instantiate(itemArray[itemIndex], itemSpawn.position, itemSpawn.rotation);
-            //var spawnNPC = Instantiate(npcPrefab, SpawnLocation.position, SpawnLocation.rotation);
             selectedItem.transform.parent = itemSpawn.transform;
             int[] tempInventory = {Beef_Qty, Bread_Qty, Corn_Qty, Egg_Qty, Potato_Qty,
                     Sausage_Qty, Beans_Qty};
@@ -130,7 +128,6 @@ public class PlayerInventory : MonoBehaviour
             Corn_Qty += 1;
 
             selectedItem = Instantiate(itemArray[itemIndex], itemSpawn.position, itemSpawn.rotation);
-            //var spawnNPC = Instantiate(npcPrefab, SpawnLocation.position, SpawnLocation.rotation);
             selectedItem.transform.parent = itemSpawn.transform;
             int[] tempInventory = {Beef_Qty, Bread_Qty, Corn_Qty, Egg_Qty, Potato_Qty,
                     Sausage_Qty, Beans_Qty};
@@ -143,7 +140,6 @@ public class PlayerInventory : MonoBehaviour
             Egg_Qty += 1;
 
             selectedItem = Instantiate(itemArray[itemIndex], itemSpawn.position, itemSpawn.rotation);
-            //var spawnNPC = Instantiate(npcPrefab, SpawnLocation.position, SpawnLocation.rotation);
             selectedItem.transform.parent = itemSpawn.transform;
             int[] tempInventory = {Beef_Qty, Bread_Qty, Corn_Qty, Egg_Qty, Potato_Qty,
                     Sausage_Qty, Beans_Qty};
@@ -156,7 +152,6 @@ public class PlayerInventory : MonoBehaviour
             Potato_Qty += 1;
 
             selectedItem = Instantiate(itemArray[itemIndex], itemSpawn.position, itemSpawn.rotation);
-            //var spawnNPC = Instantiate(npcPrefab, SpawnLocation.position, SpawnLocation.rotation);
             selectedItem.transform.parent = itemSpawn.transform;
             int[] tempInventory = {Beef_Qty, Bread_Qty, Corn_Qty, Egg_Qty, Potato_Qty,
                     Sausage_Qty, Beans_Qty};
@@ -169,7 +164,6 @@ public class PlayerInventory : MonoBehaviour
             Sausage_Qty += 1;
 
             selectedItem = Instantiate(itemArray[itemIndex], itemSpawn.position, itemSpawn.rotation);
-            //var spawnNPC = Instantiate(npcPrefab, SpawnLocation.position, SpawnLocation.rotation);
             selectedItem.transform.parent = itemSpawn.transform;
             int[] tempInventory = {Beef_Qty, Bread_Qty, Corn_Qty, Egg_Qty, Potato_Qty,
                     Sausage_Qty, Beans_Qty};
@@ -182,13 +176,62 @@ public class PlayerInventory : MonoBehaviour
             Beans_Qty += 1;
 
             selectedItem = Instantiate(itemArray[itemIndex], itemSpawn.position, itemSpawn.rotation);
-            //var spawnNPC = Instantiate(npcPrefab, SpawnLocation.position, SpawnLocation.rotation);
             selectedItem.transform.parent = itemSpawn.transform;
             int[] tempInventory = {Beef_Qty, Bread_Qty, Corn_Qty, Egg_Qty, Potato_Qty,
                     Sausage_Qty, Beans_Qty};
 
             inventory = tempInventory;
             canvas.GetComponent<PlayerUIScript>().holdIndicator(itemIndex);
+
+        }  else if (itemIndex == 7) //cooked beef
+        {
+            selectedItem = Instantiate(itemArray[itemIndex], itemSpawn.position, itemSpawn.rotation);
+            selectedItem.transform.parent = itemSpawn.transform;
+
+            canvas.GetComponent<PlayerUIScript>().holdIndicator(itemIndex);
+
+        } else if (itemIndex == 8) //cooked bread (toast)
+        {
+            selectedItem = Instantiate(itemArray[itemIndex], itemSpawn.position, itemSpawn.rotation);
+            selectedItem.transform.parent = itemSpawn.transform;
+
+            canvas.GetComponent<PlayerUIScript>().holdIndicator(itemIndex);
+
+        } else if (itemIndex == 9) //cooked corn
+        {
+            selectedItem = Instantiate(itemArray[itemIndex], itemSpawn.position, itemSpawn.rotation);
+            selectedItem.transform.parent = itemSpawn.transform;
+
+            canvas.GetComponent<PlayerUIScript>().holdIndicator(itemIndex);
+
+        } else if (itemIndex == 10) //cooked egg
+        {
+            selectedItem = Instantiate(itemArray[itemIndex], itemSpawn.position, itemSpawn.rotation);
+            selectedItem.transform.parent = itemSpawn.transform;
+
+            canvas.GetComponent<PlayerUIScript>().holdIndicator(itemIndex);
+
+        } else if (itemIndex == 11) //cooked potato (mashed)
+        {
+            selectedItem = Instantiate(itemArray[itemIndex], itemSpawn.position, itemSpawn.rotation);
+            selectedItem.transform.parent = itemSpawn.transform;
+
+            canvas.GetComponent<PlayerUIScript>().holdIndicator(itemIndex);
+
+        } else if (itemIndex == 12) //cooked sausage
+        {
+            selectedItem = Instantiate(itemArray[itemIndex], itemSpawn.position, itemSpawn.rotation);
+            selectedItem.transform.parent = itemSpawn.transform;
+
+            canvas.GetComponent<PlayerUIScript>().holdIndicator(itemIndex);
+
+        } else if (itemIndex == 13) //cooked beans
+        {
+            selectedItem = Instantiate(itemArray[itemIndex], itemSpawn.position, itemSpawn.rotation);
+            selectedItem.transform.parent = itemSpawn.transform;
+
+            canvas.GetComponent<PlayerUIScript>().holdIndicator(itemIndex);
+
         } 
     }
 

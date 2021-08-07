@@ -16,17 +16,36 @@ public class fryingpanScript : MonoBehaviour
 
     public float cookTime = 8.0f;
     public float cookingTimer = 0f;
+    public bool foodCooked;
 
     public Image[] itemIndicators;
     private Image uiUse;
     public GameObject alertParent;
     public Transform indicatorSpawn;
 
+    public GameObject takeFoodButton;
+
+
+    public void Start()
+    {
+        cookingTimer = cookTime;
+        foodCooked = false;
+    }
+
     public void Update()
     {
         if (uiUse != null)
         {
             uiUse.transform.position = Camera.main.WorldToScreenPoint(indicatorSpawn.position);
+        }
+
+        if (Input.GetKey(KeyCode.E))
+        {
+            if (foodCooked == false && currentFood != null)
+            {
+                Cooking();
+            }
+
         }
     }
 
@@ -35,6 +54,27 @@ public class fryingpanScript : MonoBehaviour
         Debug.Log("Opening Cooking UI");
         cookUI.SetActive(true);
     }
+
+
+    public void Cooking()
+    {
+        if (cookTime > 0)
+        {
+            Debug.Log(cookTime);
+            cookTime -= 1 * Time.deltaTime;
+
+        } else
+        {
+            foodCooked = true;
+            takeFoodButton.SetActive(true);
+        }
+    }
+
+    public void takeFood()
+    {
+        Destroy(uiUse);
+    }
+
 
     public void cookIndicator(int itemIndex)
         //indicator to show what food is currently on the frying pan if player closes menu
@@ -140,4 +180,7 @@ public class fryingpanScript : MonoBehaviour
 
 
     }
+    
+
+
 }

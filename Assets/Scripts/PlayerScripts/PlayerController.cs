@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public GameObject canvas;
     public GameObject MerchantUI;
     public GameObject FridgeUI;
+    public GameObject CookUI;
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +56,7 @@ public class PlayerController : MonoBehaviour
 
                 // Stop focusing object
                 RemoveFocus();
+                focusObject = null;
             }
         }
 
