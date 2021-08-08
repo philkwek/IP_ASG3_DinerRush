@@ -7,6 +7,7 @@ public class fryingpanScript : MonoBehaviour
 {
     public Animator cookUIprogress;
     public GameObject foodCookedAlert;
+    public GameObject isCookingAlert;
     private bool cookingAnimation = false;
 
     public GameObject cookUI;
@@ -21,6 +22,7 @@ public class fryingpanScript : MonoBehaviour
     public float cookTime = 8.0f;
     public float cookingTimer = 0f;
     public bool foodCooked;
+    public bool isCooking = false;
 
     public Image[] itemIndicators;
     private Image uiUse;
@@ -59,17 +61,23 @@ public class fryingpanScript : MonoBehaviour
                 stopAnimation();
             }
         }
-
-        if (foodCooked == true)
-        {
-            foodCookedAlert.SetActive(true);
-        }
     }
 
     public void openCookUI()
     {
         Debug.Log("Opening Cooking UI");
         cookUI.SetActive(true);
+    }
+
+    public void closeCookUI()
+    {
+        if (isCooking == false)
+        {
+            cookUI.SetActive(false);
+        } else
+        {
+            isCookingAlert.SetActive(true);
+        }
     }
 
     public void stopAnimation()
@@ -83,22 +91,20 @@ public class fryingpanScript : MonoBehaviour
 
         if (cookingAnimation == false)
         {
-            cookUIprogress.SetTrigger("triggerCook");
+            cookUIprogress.SetBool("triggerCook", true);
             cookingAnimation = true;
-        } else
-        {
-            cookUIprogress.speed = 1;
-            //set animation speed to 1
-        }
+        } 
 
         if (cookTime > 0)
         {
             Debug.Log(cookTime);
             cookTime -= 1 * Time.deltaTime;
+            cookUIprogress.speed = 1;
 
         } else
         {
             foodCooked = true;
+            foodCookedAlert.SetActive(true);
             takeFoodButton.SetActive(true);
         }
     }
@@ -107,6 +113,7 @@ public class fryingpanScript : MonoBehaviour
     {
         Destroy(uiUse);
         cookingAnimation = false;
+        cookUIprogress.SetBool("triggerCook", true);
     }
 
 
