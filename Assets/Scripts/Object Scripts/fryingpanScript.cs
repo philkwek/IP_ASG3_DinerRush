@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class fryingpanScript : MonoBehaviour
 {
     public Animator cookUIprogress;
+    public GameObject foodCookedAlert;
     private bool cookingAnimation = false;
 
     public GameObject cookUI;
@@ -57,6 +58,11 @@ public class fryingpanScript : MonoBehaviour
             {
                 stopAnimation();
             }
+        }
+
+        if (foodCooked == true)
+        {
+            foodCookedAlert.SetActive(true);
         }
     }
 
