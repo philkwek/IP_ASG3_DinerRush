@@ -92,7 +92,7 @@ public class PlayerUIScript : MonoBehaviour
         }
     }
 
-    public void holdIndicator(int itemIndex)
+    public void holdIndicator(int itemIndex) //code for showing what food indicator to show
     {
         if (itemIndex == 0) //beef indicator code
         {
@@ -104,7 +104,8 @@ public class PlayerUIScript : MonoBehaviour
             uiUse = Instantiate(itemIndicators[itemIndex], FindObjectOfType<Canvas>().transform).GetComponent<Image>();
             uiUse.transform.parent = alertParent.transform;
 
-        } else if (itemIndex == 1) //bread indicator code
+        }
+        else if (itemIndex == 1) //bread indicator code
         {
             if (uiUse != null)
             {
@@ -114,7 +115,8 @@ public class PlayerUIScript : MonoBehaviour
             uiUse = Instantiate(itemIndicators[itemIndex], FindObjectOfType<Canvas>().transform).GetComponent<Image>();
             uiUse.transform.parent = alertParent.transform;
 
-        } else if (itemIndex == 2) //corn indicator code
+        }
+        else if (itemIndex == 2) //corn indicator code
         {
             if (uiUse != null)
             {
@@ -124,7 +126,8 @@ public class PlayerUIScript : MonoBehaviour
             uiUse = Instantiate(itemIndicators[itemIndex], FindObjectOfType<Canvas>().transform).GetComponent<Image>();
             uiUse.transform.parent = alertParent.transform;
 
-        } else if (itemIndex == 3) //Egg indicator code
+        }
+        else if (itemIndex == 3) //Egg indicator code
         {
             if (uiUse != null)
             {
@@ -134,7 +137,8 @@ public class PlayerUIScript : MonoBehaviour
             uiUse = Instantiate(itemIndicators[itemIndex], FindObjectOfType<Canvas>().transform).GetComponent<Image>();
             uiUse.transform.parent = alertParent.transform;
 
-        } else if (itemIndex == 4) //Potato indicator code
+        }
+        else if (itemIndex == 4) //Potato indicator code
         {
             if (uiUse != null)
             {
@@ -144,7 +148,8 @@ public class PlayerUIScript : MonoBehaviour
             uiUse = Instantiate(itemIndicators[itemIndex], FindObjectOfType<Canvas>().transform).GetComponent<Image>();
             uiUse.transform.parent = alertParent.transform;
 
-        } else if (itemIndex == 5) //Sausage indicator code
+        }
+        else if (itemIndex == 5) //Sausage indicator code
         {
             if (uiUse != null)
             {
@@ -154,7 +159,8 @@ public class PlayerUIScript : MonoBehaviour
             uiUse = Instantiate(itemIndicators[itemIndex], FindObjectOfType<Canvas>().transform).GetComponent<Image>();
             uiUse.transform.parent = alertParent.transform;
 
-        } else if (itemIndex == 6) //Beans indicator code
+        }
+        else if (itemIndex == 6) //Beans indicator code
         {
             if (uiUse != null)
             {
@@ -164,7 +170,18 @@ public class PlayerUIScript : MonoBehaviour
             uiUse = Instantiate(itemIndicators[itemIndex], FindObjectOfType<Canvas>().transform).GetComponent<Image>();
             uiUse.transform.parent = alertParent.transform;
 
-        } else if (itemIndex == 8) //Cooked Beef Indicator
+        }
+        else if (itemIndex == 7) //Cooked Beef Indicator
+        {
+            if (uiUse != null)
+            {
+                Destroy(uiUse);
+            }
+            Debug.Log("Spawning indicator");
+            uiUse = Instantiate(itemIndicators[itemIndex], FindObjectOfType<Canvas>().transform).GetComponent<Image>();
+            uiUse.transform.parent = alertParent.transform;
+        }
+        else if (itemIndex == 8) //Toast indicator
         {
             if (uiUse != null)
             {
@@ -174,7 +191,8 @@ public class PlayerUIScript : MonoBehaviour
             uiUse = Instantiate(itemIndicators[itemIndex], FindObjectOfType<Canvas>().transform).GetComponent<Image>();
             uiUse.transform.parent = alertParent.transform;
 
-        } else if (itemIndex == 9) // Toast indicator
+        }
+        else if (itemIndex == 9) // cooked Corn
         {
             if (uiUse != null)
             {
@@ -184,7 +202,8 @@ public class PlayerUIScript : MonoBehaviour
             uiUse = Instantiate(itemIndicators[itemIndex], FindObjectOfType<Canvas>().transform).GetComponent<Image>();
             uiUse.transform.parent = alertParent.transform;
 
-        } else if (itemIndex == 10) // cooked egg indicator
+        }
+        else if (itemIndex == 10) //cooked egg indicator
         {
             if (uiUse != null)
             {
@@ -194,7 +213,19 @@ public class PlayerUIScript : MonoBehaviour
             uiUse = Instantiate(itemIndicators[itemIndex], FindObjectOfType<Canvas>().transform).GetComponent<Image>();
             uiUse.transform.parent = alertParent.transform;
 
-        } else if (itemIndex == 11) // cooked potato (mashed)
+        }
+        else if (itemIndex == 11) //cooked potato (mashed) 
+        { 
+            if (uiUse != null)
+            {
+                Destroy(uiUse);
+            }
+            Debug.Log("Spawning indicator");
+            uiUse = Instantiate(itemIndicators[itemIndex], FindObjectOfType<Canvas>().transform).GetComponent<Image>();
+            uiUse.transform.parent = alertParent.transform;
+
+        }
+        else if (itemIndex == 12) //cooked sausage  
         {
             if (uiUse != null)
             {
@@ -204,17 +235,8 @@ public class PlayerUIScript : MonoBehaviour
             uiUse = Instantiate(itemIndicators[itemIndex], FindObjectOfType<Canvas>().transform).GetComponent<Image>();
             uiUse.transform.parent = alertParent.transform;
 
-        } else if (itemIndex == 12) // cooked sausage 
-        {
-            if (uiUse != null)
-            {
-                Destroy(uiUse);
-            }
-            Debug.Log("Spawning indicator");
-            uiUse = Instantiate(itemIndicators[itemIndex], FindObjectOfType<Canvas>().transform).GetComponent<Image>();
-            uiUse.transform.parent = alertParent.transform;
-
-        } else if (itemIndex == 13) // cooked beans
+        }
+        else if (itemIndex == 13) //cooked beans  
         {
             if (uiUse != null)
             {

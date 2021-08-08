@@ -112,6 +112,11 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Frying Pan script running");
                 focusObject.GetComponent<fryingpanScript>().openCookUI();
             }
+
+            if (focusObject.transform.tag == "Plate")
+            {
+                focusObject.GetComponent<plateScript>().openPlateUI();
+            }
         }
 
     }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class cookUIScript : MonoBehaviour
 {
+    public GameObject canvas;
+
     public GameObject playerObject;
     public GameObject fryingPan;
 
@@ -45,8 +47,11 @@ public class cookUIScript : MonoBehaviour
         if (fryingPan.GetComponent<fryingpanScript>().foodCooked == true)
         {
             activeImage.SetActive(false);
+            //activeImage = foodImages[cookedFoodIndex];
             fryingPan.GetComponent<fryingpanScript>().takeFood();
             playerObject.GetComponent<PlayerInventory>().holdItem(cookedFoodIndex);
+
+            canvas.GetComponent<PlayerUIScript>().holdIndicator(cookedFoodIndex);
         }
     }
 }

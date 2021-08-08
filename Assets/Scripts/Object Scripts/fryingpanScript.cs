@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class fryingpanScript : MonoBehaviour
 {
+
     public Animator cookUIprogress;
     public GameObject foodCookedAlert;
     public GameObject isCookingAlert;
-    private bool cookingAnimation = false;
+    public bool cookingAnimation = false;
 
     public GameObject cookUI;
     public GameObject playerObject;
@@ -19,8 +20,8 @@ public class fryingpanScript : MonoBehaviour
     //transform locations for the food on frying pan
     public Transform foodSpawn1;
 
-    public float cookTime = 8.0f;
-    public float cookingTimer = 0f;
+    public float cookTime = 0f;
+    public float cookingTimer = 8.0f;
     public bool foodCooked;
     public bool isCooking = false;
 
@@ -34,7 +35,7 @@ public class fryingpanScript : MonoBehaviour
 
     public void Start()
     {
-        cookingTimer = cookTime;
+        cookTime = cookingTimer;
         foodCooked = false;
     }
 
@@ -47,7 +48,7 @@ public class fryingpanScript : MonoBehaviour
 
         if (Input.GetKey(KeyCode.E))
         {
-            if (foodCooked == false && currentFood != null)
+            if (foodCooked == false && currentFood != null && cookUI.activeSelf == true)
             {
                 Cooking();
             }
@@ -56,7 +57,7 @@ public class fryingpanScript : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.E))
         {
-            if (foodCooked == false && currentFood != null)
+            if (foodCooked == false && currentFood != null && cookUI.activeSelf == true)
             {
                 stopAnimation();
             }
@@ -88,32 +89,38 @@ public class fryingpanScript : MonoBehaviour
 
     public void Cooking()
     {
-
-        if (cookingAnimation == false)
-        {
-            cookUIprogress.SetBool("triggerCook", true);
-            cookingAnimation = true;
-        } 
-
         if (cookTime > 0)
         {
+            if (cookingAnimation == false)
+            {
+                cookUIprogress.SetBool("triggerCook", true);
+                cookingAnimation = true;
+            }
+
             Debug.Log(cookTime);
             cookTime -= 1 * Time.deltaTime;
             cookUIprogress.speed = 1;
 
-        } else
+        } else if (cookTime <= 0)
         {
             foodCooked = true;
             foodCookedAlert.SetActive(true);
             takeFoodButton.SetActive(true);
+            cookUIprogress.SetBool("triggerCook", false);
+            cookingAnimation = false;
+            cookUIprogress.speed = 1;
         }
     }
 
     public void takeFood()
     {
+        Debug.Log("Running fryingpan script");
         Destroy(uiUse);
-        cookingAnimation = false;
-        cookUIprogress.SetBool("triggerCook", true);
+
+        takeFoodButton.SetActive(false);
+        foodCooked = false;
+        cookTime = cookingTimer;
+        currentFood = null;
     }
 
 

@@ -11,6 +11,7 @@ TagManager:
   - Fridge
   - RestaurantOpen
   - FryingPan
+  - Plate
   layers:
   - Default
   - TransparentFX
