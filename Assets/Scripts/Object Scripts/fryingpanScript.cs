@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class fryingpanScript : MonoBehaviour
 {
+    public Animator cookUIprogress;
+    private bool cookingAnimation = false;
+
     public GameObject cookUI;
     public GameObject playerObject;
 
@@ -47,6 +50,14 @@ public class fryingpanScript : MonoBehaviour
             }
 
         }
+
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            if (foodCooked == false && currentFood != null)
+            {
+                stopAnimation();
+            }
+        }
     }
 
     public void openCookUI()
@@ -55,9 +66,25 @@ public class fryingpanScript : MonoBehaviour
         cookUI.SetActive(true);
     }
 
+    public void stopAnimation()
+    {
+        cookUIprogress.speed = 0;
+    }
+
 
     public void Cooking()
     {
+
+        if (cookingAnimation == false)
+        {
+            cookUIprogress.SetTrigger("triggerCook");
+            cookingAnimation = true;
+        } else
+        {
+            cookUIprogress.speed = 1;
+            //set animation speed to 1
+        }
+
         if (cookTime > 0)
         {
             Debug.Log(cookTime);
@@ -73,6 +100,7 @@ public class fryingpanScript : MonoBehaviour
     public void takeFood()
     {
         Destroy(uiUse);
+        cookingAnimation = false;
     }
 
 
