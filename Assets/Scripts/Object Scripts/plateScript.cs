@@ -8,6 +8,9 @@ public class plateScript : MonoBehaviour
     public GameObject heldFood;
     public int foodIndex;
 
+    public Transform spawnPlatePosition; //this is for the plate
+
+    // Food Index for the plate
     public int[] foodOnPlate = new int[3];
 
     //Food poisitons for heldFood to be placed
@@ -85,5 +88,11 @@ public class plateScript : MonoBehaviour
     public void openPlateUI()
     {
         plateUI.SetActive(true);
+    }
+
+    public void takePlate()
+    {
+        gameObject.transform.position = spawnPlatePosition.position;
+        gameObject.transform.parent = playerObject.transform;
     }
 }
