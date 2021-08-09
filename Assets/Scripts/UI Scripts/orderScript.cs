@@ -46,6 +46,7 @@ public class orderScript : MonoBehaviour
         dish = playerObject.GetComponent<PlayerInventory>().currentDish;
         Debug.Log(dish);
         npc.GetComponent<customer_npc>().checkOrder(dish);
+        playerObject.GetComponent<PlayerInventory>().currentDish = null;
     }
 
     public void toggleOrderAlert(bool status) //for telling player if order is right or wrong

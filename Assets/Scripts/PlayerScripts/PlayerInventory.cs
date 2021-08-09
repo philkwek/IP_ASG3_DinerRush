@@ -28,6 +28,8 @@ public class PlayerInventory : MonoBehaviour
 
     public GameObject canvas;
 
+    public GameObject plateObject;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -279,6 +281,12 @@ public class PlayerInventory : MonoBehaviour
         }
 
         currentDish = dishIngredients;
+    }
+
+    public void takePlate()
+    {
+        plateObject = gameObject.GetComponent<PlayerController>().focusObject;
+        plateObject.GetComponent<plateScript>().takePlate();
     }
 
 }
