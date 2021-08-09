@@ -141,7 +141,6 @@ public class customer_npc : MonoBehaviour
                 {
                     numberCheck += 1;
                     Debug.Log("Found match: " + numberCheck);
-                    return;
                 }
             }
         }
