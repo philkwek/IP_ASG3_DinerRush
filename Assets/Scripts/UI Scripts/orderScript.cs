@@ -27,11 +27,22 @@ public class orderScript : MonoBehaviour
     public TextMeshProUGUI orderUI_text;
 
     public GameObject orderMenu;
+    public GameObject playerObject;
+    public GameObject npc;
 
     public void orderMenuOpen()
     {
         orderUI_text.text = orderText;
         orderMenu.SetActive(true);
+    }
+
+    public void giveOrder()
+    {
+        Debug.Log("Order script check running");
+        int[] dish;
+        dish = playerObject.GetComponent<PlayerInventory>().currentDish;
+        Debug.Log(dish);
+        npc.GetComponent<customer_npc>().checkOrder(dish);
     }
 
     public void takeOrder()

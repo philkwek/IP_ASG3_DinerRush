@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     public GameObject MerchantUI;
     public GameObject FridgeUI;
     public GameObject CookUI;
+    public GameObject CustomerUI;
+    public GameObject GiveOrderUI;
 
     // Start is called before the first frame update
     void Start()
@@ -87,7 +89,7 @@ public class PlayerController : MonoBehaviour
                 //Time.timeScale = 0;
             }
 
-            if (focusObject.transform.tag == "Fridge")
+            else if (focusObject.transform.tag == "Fridge")
             {
                 //int[] tempInventory = gameObject.GetComponent<PlayerInventory>().inventory;
                 //focusObject.GetComponent<FridgeScript>().inventoryArray = tempInventory;
@@ -95,25 +97,34 @@ public class PlayerController : MonoBehaviour
                 //FridgeUI.SetActive(true);
             }
 
-            if (focusObject.transform.tag == "RestaurantOpen")
+            else if (focusObject.transform.tag == "RestaurantOpen")
             {
                 focusObject.GetComponent<openRestaurantScript>().openDoors();
             }
 
-            if (focusObject.transform.tag == "CustomerNPC")
+            else if (focusObject.transform.tag == "CustomerNPC")
             {
-                focusObject.GetComponent<customer_npc>().interactOrder();
-                canvas.GetComponent<orderScript>().npcMood = focusObject;
-                focusObject = null;
+                if(focusObject.GetComponent<customer_npc>().ordered == false)
+                {
+                    focusObject.GetComponent<customer_npc>().interactOrder();
+                    canvas.GetComponent<orderScript>().npcMood = focusObject;
+                    focusObject = null;
+                } else
+                {
+                    GiveOrderUI.SetActive(true);
+                    canvas.GetComponent<orderScript>().npc = focusObject;
+                    focusObject = null;
+                }
+                
             }
 
-            if (focusObject.transform.tag == "FryingPan")
+            else if (focusObject.transform.tag == "FryingPan")
             {
                 Debug.Log("Frying Pan script running");
                 focusObject.GetComponent<fryingpanScript>().openCookUI();
             }
 
-            if (focusObject.transform.tag == "Plate")
+            else if (focusObject.transform.tag == "Plate")
             {
                 focusObject.GetComponent<plateScript>().openPlateUI();
             }

@@ -15,9 +15,11 @@ public class customer_npc : MonoBehaviour
 
     public int[] assignedOrder; //assigned order by spawner (unique to each NPC)
     public string orderText; //order text
+    public int[] receivedOrder; //for when player gives order to customer
 
     public bool ordered = false;
     public bool order_received = false;
+    public bool orderCorrect = false;
 
     public bool orderTimer = false;
     public bool timerStart = false;
@@ -36,6 +38,7 @@ public class customer_npc : MonoBehaviour
     private GameObject leaveObject;
 
     public GameObject canvas;
+    public GameObject playerObject;
 
     private void Awake()
     {
@@ -99,7 +102,7 @@ public class customer_npc : MonoBehaviour
         if (timerStart == true)
         {
             startTimer();
-            Debug.Log(currentTime.ToString("0"));
+            //Debug.Log(currentTime.ToString("0"));
         }
 
         if (orderStart == true)
@@ -119,6 +122,34 @@ public class customer_npc : MonoBehaviour
             ordered = true;
         }
         
+    }
+
+    public void checkOrder(int[] dishes)
+    {
+        Debug.Log("Order Check running");
+        var numberOfDishes = dishes.GetLength(0);
+        var numberCheck = 0;
+        Debug.Log(dishes);
+
+        for (int i = 0; i < numberOfDishes; i++)
+        {
+            Debug.Log("Checking dish" + dishes[i]);
+
+            for (int x = 0; x < numberOfDishes; x++)
+            {
+                if (dishes[i] == receivedOrder[x])
+                {
+                    numberCheck += 1;
+                    Debug.Log("Found match: " + numberCheck);
+                    return;
+                }
+            }
+        }
+
+        if (numberCheck == numberOfDishes)
+        {
+            orderCorrect = true;
+        }
     }
 
     public void startTimer()

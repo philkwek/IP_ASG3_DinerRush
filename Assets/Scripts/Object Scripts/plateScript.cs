@@ -8,15 +8,12 @@ public class plateScript : MonoBehaviour
     public GameObject heldFood;
     public int foodIndex;
 
-    //Plate spawns for when the player takes a plate
-    public Transform plateSpawn1;
-    public Transform plateSpawn2;
-    public Transform plateSpawn3;
-
     public Transform spawnPlatePosition; //this is for the plate
+    public GameObject platePrefab;
 
     // Food Index for the plate
-    public int[] foodOnPlate = new int[3];
+    public int[] foodOnPlate;
+    public int numberOfFood;
 
     //Food poisitons for heldFood to be placed
     public Transform foodSpawn1;
@@ -32,9 +29,14 @@ public class plateScript : MonoBehaviour
     public GameObject playerObject;
     public GameObject canvas;
 
+
+
     private void Start()
     {
-        
+        //plateUI = GameObject.Find("PlateUI");
+        canvas = GameObject.Find("Canvas");
+        playerObject = GameObject.Find("player_model");
+        //spawnPl
     }
 
     public void placeFood()
@@ -44,7 +46,7 @@ public class plateScript : MonoBehaviour
         //spawn item onto the plate
         if (playerObject.GetComponent<PlayerInventory>().itemNumber > 6
             && playerObject.GetComponent<PlayerInventory>().itemNumber < 14
-            && plate_full == false) //checks if item held is cooked food
+            && plate_full == false && playerObject.GetComponent<PlayerInventory>().selectedItem != null) //checks if item held is cooked food
         {
             playerObject.GetComponent<PlayerInventory>().holdingItem = false;
             canvas.GetComponent<PlayerUIScript>().destroyIndicator();
@@ -52,31 +54,53 @@ public class plateScript : MonoBehaviour
 
             heldFood = playerObject.GetComponent<PlayerInventory>().selectedItem;
             playerObject.GetComponent<PlayerInventory>().selectedItem = null;
+            
             heldFood.transform.parent = gameObject.transform;
 
             if (spawn1_taken == false) //food spawning script onto the plate
             {
                 heldFood.transform.position = foodSpawn1.position;
                 spawn1_taken = true;
-                foodOnPlate[0] = foodIndex - 7;
 
-                plateUI.GetComponent<plateUIScript>().foodImageOn(1, foodOnPlate[0]);
+                foodOnPlate = new int[]
+                {
+                    foodIndex - 7,
+                };
+                //foodOnPlate[0] = foodIndex - 7;
+
+                numberOfFood += 1;
+
+                //plateUI.GetComponent<plateUIScript>().foodImageOn(1, foodOnPlate[0]);
 
             } else if (spawn2_taken == false)
             {
                 heldFood.transform.position = foodSpawn2.position;
                 spawn2_taken = true;
-                foodOnPlate[1] = foodIndex - 7;
+                var spawn1 = foodOnPlate[0];
+                foodOnPlate = new int[]
+                {
+                    spawn1,
+                    foodIndex - 7,
+                }; 
+                numberOfFood += 1;
 
-                plateUI.GetComponent<plateUIScript>().foodImageOn(2, foodOnPlate[1]);
+                //plateUI.GetComponent<plateUIScript>().foodImageOn(2, foodOnPlate[1]);
 
             } else if (spawn3_taken == false)
             {
                 heldFood.transform.position = foodSpawn3.position;
                 spawn3_taken = true;
-                foodOnPlate[2] = foodIndex - 7;
+                var spawn1 = foodOnPlate[0];
+                var spawn2 = foodOnPlate[1];
+                foodOnPlate = new int[]
+                {
+                    spawn1,
+                    spawn2,
+                    foodIndex - 7,
+                };
+                numberOfFood += 1;
 
-                plateUI.GetComponent<plateUIScript>().foodImageOn(3, foodOnPlate[2]);
+                //plateUI.GetComponent<plateUIScript>().foodImageOn(3, foodOnPlate[2]);
                 plate_full = true;
             } 
 
@@ -104,5 +128,24 @@ public class plateScript : MonoBehaviour
     {
         gameObject.transform.position = spawnPlatePosition.position;
         gameObject.transform.parent = playerObject.transform;
+
+        if (numberOfFood == 3)
+        {
+            playerObject.GetComponent<PlayerInventory>().orderHold(foodOnPlate[0], foodOnPlate[1], foodOnPlate[2]);
+
+        } else if (numberOfFood == 2)
+        {
+            playerObject.GetComponent<PlayerInventory>().orderHold(foodOnPlate[0], foodOnPlate[1], 20);
+        } else if (numberOfFood == 1)
+        {
+            playerObject.GetComponent<PlayerInventory>().orderHold(foodOnPlate[0], 20, 20);
+        }
+        
+        var plate = Instantiate(platePrefab, spawnPlatePosition.position, spawnPlatePosition.rotation);
+
+        plate.GetComponent<plateScript>().plateUI = plateUI;
+        plate.GetComponent<plateScript>().spawnPlatePosition = spawnPlatePosition;
+        plate.GetComponent<plateScript>().platePrefab = platePrefab;
+
     }
 }

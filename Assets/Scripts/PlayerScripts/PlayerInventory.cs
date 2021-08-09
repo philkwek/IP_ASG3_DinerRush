@@ -22,6 +22,8 @@ public class PlayerInventory : MonoBehaviour
     public GameObject selectedItem; //selected item to be held
     public int itemNumber;
 
+    public int[] currentDish;
+
     public Transform itemSpawn;
 
     public GameObject canvas;
@@ -248,4 +250,35 @@ public class PlayerInventory : MonoBehaviour
         Destroy(selectedItem);
         canvas.GetComponent<PlayerUIScript>().destroyIndicator();
     }
+
+    public void orderHold(int food1, int food2, int food3)
+    {
+        int[] dishIngredients;
+
+        if (food2 == 20 && food3 == 20)
+        {
+            dishIngredients = new int[]
+            {
+                food1,
+            };
+        } else if (food3 == 20)
+        {
+            dishIngredients = new int[]
+            {
+                food1,
+                food2,
+            };
+        } else
+        {
+            dishIngredients = new int[]
+            {
+                food1,
+                food2,
+                food3
+            };
+        }
+
+        currentDish = dishIngredients;
+    }
+
 }
