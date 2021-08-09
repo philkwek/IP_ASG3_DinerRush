@@ -8,6 +8,11 @@ public class plateScript : MonoBehaviour
     public GameObject heldFood;
     public int foodIndex;
 
+    //Plate spawns for when the player takes a plate
+    public Transform plateSpawn1;
+    public Transform plateSpawn2;
+    public Transform plateSpawn3;
+
     public Transform spawnPlatePosition; //this is for the plate
 
     // Food Index for the plate
@@ -26,6 +31,11 @@ public class plateScript : MonoBehaviour
     public GameObject plateUI;
     public GameObject playerObject;
     public GameObject canvas;
+
+    private void Start()
+    {
+        
+    }
 
     public void placeFood()
     {
