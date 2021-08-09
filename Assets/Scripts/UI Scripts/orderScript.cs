@@ -30,6 +30,9 @@ public class orderScript : MonoBehaviour
     public GameObject playerObject;
     public GameObject npc;
 
+    public GameObject correctOrder;
+    public GameObject wrongOrder;
+
     public void orderMenuOpen()
     {
         orderUI_text.text = orderText;
@@ -43,6 +46,17 @@ public class orderScript : MonoBehaviour
         dish = playerObject.GetComponent<PlayerInventory>().currentDish;
         Debug.Log(dish);
         npc.GetComponent<customer_npc>().checkOrder(dish);
+    }
+
+    public void toggleOrderAlert(bool status) //for telling player if order is right or wrong
+    {
+        if (status == true)
+        {
+            correctOrder.SetActive(true);
+        } else
+        {
+            wrongOrder.SetActive(true);
+        }
     }
 
     public void takeOrder()

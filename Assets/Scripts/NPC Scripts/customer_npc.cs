@@ -148,6 +148,13 @@ public class customer_npc : MonoBehaviour
         if (numberCheck == numberOfDishes)
         {
             orderCorrect = true;
+            canvas.GetComponent<orderScript>().toggleOrderAlert(true);
+            order_received = true;
+
+        } else if (numberCheck != numberOfDishes)
+        {
+            orderCorrect = false;
+            canvas.GetComponent<orderScript>().toggleOrderAlert(false);
         }
     }
 
@@ -180,6 +187,8 @@ public class customer_npc : MonoBehaviour
             }
         } else
         {
+            gameObject.GetComponent<npcMoodScript>().offAlert();
+
             //run code for when order is received
         }
     }
