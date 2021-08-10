@@ -152,5 +152,14 @@ public class plateScript : MonoBehaviour
 
     }
 
+    public void DestroyFood()
+    {
+        foreach (Transform child in gameObject.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+        
+    }
+
 
 }

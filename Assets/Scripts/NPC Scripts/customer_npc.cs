@@ -15,6 +15,8 @@ public class customer_npc : MonoBehaviour
     public GameObject[] plateTransform; // Array of all plate positions for when NPC recieves food
     public GameObject plateSelected;
 
+    public GameObject customerPlate;
+
     public GameObject[] NPC_Model; //Array of the 2 NPC models for use
 
     public int[] assignedOrder; //assigned order by spawner (unique to each NPC)
@@ -35,6 +37,10 @@ public class customer_npc : MonoBehaviour
     public float startingTime = 120f;
     public float orderTime = 0f;
     public float orderStarting_time = 50f;
+
+    public float eatDuration = 5.0f;
+    public float eatTime = 0f;
+    public bool eatingComplete = false;
 
     private int target_index;
     private int npc_model;
@@ -109,6 +115,7 @@ public class customer_npc : MonoBehaviour
 
         currentTime = startingTime;
         orderTime = orderStarting_time;
+        eatTime = eatDuration;
     }
 
     private void Update()
@@ -128,6 +135,11 @@ public class customer_npc : MonoBehaviour
         if (orderStart == true)
         {
             startOrder();
+        }
+
+        if (order_complete == true)
+        {
+            eatingFood();
         }
     }
 
@@ -199,21 +211,41 @@ public class customer_npc : MonoBehaviour
 
             }
 
-            if (currentTime <= 0 && angry == false)
+            if (currentTime <= 0 && angry == false && timerStart == true)
             {
-
+                timerStart = false;
                 angry = true;
                 gameObject.GetComponent<npcMoodScript>().angryAlert();
                 LeaveRestaurant();
             }
-        } else if (order_complete == false)
+
+        } else if (order_complete == false) //code runs when order is complete & correct
         {
             order_complete = true;
+            timerStart = false;
             gameObject.GetComponent<npcMoodScript>().offAlert();
-            GameObject plate = playerObject.GetComponent<PlayerInventory>().plateObject;
-            plate.transform.position = plateSelected.transform.position;
-            plate.transform.parent = aiObject.transform;
-            //run code for when order is received
+            customerPlate = playerObject.GetComponent<PlayerInventory>().plateObject;
+            customerPlate.transform.position = plateSelected.transform.position;
+            customerPlate.transform.parent = aiObject.transform;
+ 
+        }
+    }
+
+    public void eatingFood()
+    {
+        if (eatingComplete == false)
+        {
+            if (eatTime > 0)
+            {
+                eatTime -= 1 * Time.deltaTime;
+
+            } else if (eatTime <= 0)
+            {
+                eatingComplete = true;
+                gameObject.GetComponent<npcMoodScript>().happyAlert();
+                LeaveRestaurant();
+                customerPlate.GetComponent<plateScript>().DestroyFood(); //destroy food models
+            }
         }
     }
 
