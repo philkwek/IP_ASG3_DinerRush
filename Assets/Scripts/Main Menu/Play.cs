@@ -30,6 +30,11 @@ public class Play : MonoBehaviour
         SceneManager.LoadScene("main_menu");
     }
 
+    public void Credits()
+    {
+        SceneManager.LoadScene("credits");
+    }
+
     public void QuitGame()
     {
         Debug.Log("Quit");
