@@ -26,7 +26,7 @@ public class customer_npc : MonoBehaviour
     public bool ordered = false;
     public bool order_received = false;
     public bool order_complete = false;
-    public bool orderCorrect = false;
+    public bool orderCorrect = false; //true if order given is correct
 
     public bool orderTimer = false;
     public bool timerStart = false;

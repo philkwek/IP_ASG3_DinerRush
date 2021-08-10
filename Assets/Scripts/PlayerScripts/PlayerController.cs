@@ -129,6 +129,11 @@ public class PlayerController : MonoBehaviour
             {
                 focusObject.GetComponent<plateScript>().openPlateUI();
             }
+
+            else if (focusObject.transform.tag == "trashBin")
+            {
+                focusObject.GetComponent<trashScript>().openUI();
+            }
         }
 
     }

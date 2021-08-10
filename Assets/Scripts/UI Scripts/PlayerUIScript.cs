@@ -52,17 +52,6 @@ public class PlayerUIScript : MonoBehaviour
                 parentObject = GameObject.Find("day3_morning");
             }
 
-            obj1_done = parentObject.transform.Find("obj1_done").gameObject;
-            obj2_done = parentObject.transform.Find("obj2_done").gameObject;
-            obj3_done = parentObject.transform.Find("obj3_done").gameObject;
-            obj4_done = parentObject.transform.Find("obj4_done").gameObject;
-            obj5_done = parentObject.transform.Find("obj5_done").gameObject;
-
-            obj1_done.SetActive(false);
-            obj2_done.SetActive(false);
-            obj3_done.SetActive(false);
-            obj4_done.SetActive(false);
-            obj5_done.SetActive(false);
         }
     }
 

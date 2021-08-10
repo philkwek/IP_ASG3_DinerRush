@@ -12,6 +12,7 @@ TagManager:
   - RestaurantOpen
   - FryingPan
   - Plate
+  - trashBin
   layers:
   - Default
   - TransparentFX
