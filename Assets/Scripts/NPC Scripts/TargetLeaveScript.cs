@@ -24,14 +24,22 @@ public class TargetLeaveScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "CustomerNPC")
+        if (other.transform.tag == "CustomerNPC" || other.transform.tag == "GordonRamsey")
         {
             Target.SetActive(false); //disables target so spawner knows that seat has been occupied
 
             NPC = other.gameObject;
 
             NPC.GetComponent<npcMoodScript>().orderAlert();
-            NPC.GetComponent<customer_npc>().orderStart = true;
+
+            if (other.transform.tag == "CustomerNPC")
+            {
+                NPC.GetComponent<customer_npc>().orderStart = true;
+            } else
+            {
+                NPC.GetComponent<GordonRamseyScript>().orderStart = true;
+            }
+            
 
             //Invoke("leaveFunction", 5.0f); // temporary function to test leaving script
         }

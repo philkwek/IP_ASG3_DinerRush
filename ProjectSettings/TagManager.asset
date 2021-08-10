@@ -13,6 +13,7 @@ TagManager:
   - FryingPan
   - Plate
   - trashBin
+  - GordonRamsey
   layers:
   - Default
   - TransparentFX

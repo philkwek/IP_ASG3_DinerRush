@@ -6,17 +6,60 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class GordonRamseyScript : MonoBehaviour
 {
-    NavMeshAgent agent;
-    private int target_index;
-
+    NavMeshAgent agent; //reference to agent
+    //public Transform target; //target position for NPC to travel to
+    //public Transform turn_target; // target direction to turn to
     public GameObject[] AI_targets; // Array of all target positions for AI to travel to
     public GameObject aiObject;
     public GameObject[] AI_targets_face;// Array of all target position for AI to face once seat is reached
     public GameObject[] plateTransform; // Array of all plate positions for when NPC recieves food
     public GameObject plateSelected;
 
+    public GameObject customerPlate;
+
+    public int[] assignedOrder; //assigned order 
+    public string orderText; //order text
+    public int[] receivedOrder; //for when player gives order to AI
+
+    public bool ordered = false;
+    public bool order_received = false;
+    public bool order_complete = false;
+    public bool orderCorrect = false; //true if order given is correct
+
+    public bool orderTimer = false;
+    public bool timerStart = false;
+    public bool orderStart = false;
+    public bool attendOrder = false;
+
+    public float currentTime = 0f;
+    public float startingTime = 120f;
+    public float orderTime = 0f;
+    public float orderStarting_time = 50f;
+
+    public float eatDuration = 5.0f;
+    public float eatTime = 0f;
+    public bool eatingComplete = false;
+
+    private int target_index;
+    private int npc_model;
+
+    private GameObject spawnObject;
+    private GameObject leaveObject;
+
+    public GameObject canvas;
+    public GameObject giveRamseyUI;
+    public GameObject playerObject;
+
+    public Transform plateLocation;
+
+    public bool followingNPC = false;
+
+    public bool angry = false;
+    public bool disappointed = false;
+
     private void Awake()
     {
+
         AI_targets[0] = GameObject.Find("AiTarget_0");
         AI_targets[1] = GameObject.Find("AiTarget_1");
         AI_targets[2] = GameObject.Find("AiTarget_2");
@@ -60,17 +103,185 @@ public class GordonRamseyScript : MonoBehaviour
         plateTransform[10] = GameObject.Find("Location10");
         plateTransform[11] = GameObject.Find("Location11");
         plateTransform[12] = GameObject.Find("Location12");
+
+        spawnObject = GameObject.Find("NPC_Spawn");
+        leaveObject = GameObject.Find("NPC_Leave");
+        playerObject = GameObject.Find("player_model");
+
+        canvas = GameObject.Find("Canvas");
     }
+
     // Start is called before the first frame update
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        agent = GetComponent<NavMeshAgent>(); // gets gameobject's navmesh agent for use
+        //MoveToPoint(target.position);
+        RandomizeTarget();
+
+        currentTime = startingTime;
+        orderTime = orderStarting_time;
+        eatTime = eatDuration;
+
+        orderText = "Beef Steak & Sausage";
+        int[] order =
+        {
+            0,
+            5,
+        };
+        assignedOrder = order;
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
+        if (agent.velocity.magnitude < 0.15f && followingNPC == false) // turns NPC to face the appropriate direction once AI is "seated"
+        {
+            //Debug.Log("Turning");
+            FaceTarget(AI_targets_face[target_index]);
+        }
+
+        if (timerStart == true)
+        {
+            startTimer();
+            //Debug.Log(currentTime.ToString("0"));
+        }
+
+        if (orderStart == true)
+        {
+            startOrder();
+        }
+
+        if (order_complete == true)
+        {
+            eatingFood();
+        }
+    }
+
+    public void interactOrder() //function that runs from playercontroller, opens order menu
+    {
+        attendOrder = true;
+        if (ordered == false)
+        {
+            canvas.GetComponent<orderScript>().orderText = orderText;
+            canvas.GetComponent<orderScript>().assignedOrder = assignedOrder;
+            canvas.GetComponent<orderScript>().orderMenuOpen();
+            ordered = true;
+        }
+
+    }
+
+    public void checkOrder(int[] dishes)
+    {
+        Debug.Log("Order Check running");
+        var numberOfDishes = dishes.GetLength(0);
+        var numberCheck = 0;
+        Debug.Log(dishes[0]);
+
+        for (int i = 0; i < numberOfDishes; i++)
+        {
+            Debug.Log("Checking dish" + dishes[i]);
+
+            for (int x = 0; x < numberOfDishes; x++)
+            {
+                if (dishes[i] == assignedOrder[x])
+                {
+                    numberCheck += 1;
+                    Debug.Log("Found match: " + numberCheck);
+                }
+            }
+        }
+
+        if (numberCheck == numberOfDishes)
+        {
+            orderCorrect = true;
+            canvas.GetComponent<orderScript>().toggleOrderAlert(true);
+            order_received = true;
+
+
+        }
+        else if (numberCheck != numberOfDishes)
+        {
+            orderCorrect = false;
+            canvas.GetComponent<orderScript>().toggleOrderAlert(false);
+            gameObject.GetComponent<npcMoodScript>().angryAlert();
+            LeaveRestaurant();
+        }
+    }
+
+    public void startTimer() // for AI waiting for order to be given by player
+    { // total time => 120s
         
+
+        if (order_received != true)
+        {
+            if (currentTime > 0)
+            {
+                currentTime -= 1 * Time.deltaTime;
+                followPlayer();
+            }
+
+            if (currentTime < 60 && angry == false && timerStart == true)
+            {
+                timerStart = false;
+                angry = true;
+
+                gameObject.GetComponent<npcMoodScript>().angryAlert();
+                stopFollowPlayer();
+                LeaveRestaurant();
+            }
+
+        }
+        else if (order_complete == false) //code runs when order is complete & correct
+        {
+            order_complete = true;
+            timerStart = false;
+            gameObject.GetComponent<npcMoodScript>().offAlert();
+
+            //code transfers plate into gordon ramsey's hands
+            customerPlate = playerObject.GetComponent<PlayerInventory>().plateObject;
+            customerPlate.transform.position = plateLocation.transform.position;
+            customerPlate.transform.parent = gameObject.transform;
+
+        }
+    }
+
+
+    public void eatingFood() //function for AI "eating" food
+    {
+        if (eatingComplete == false)
+        {
+            if (eatTime > 0)
+            {
+                eatTime -= 1 * Time.deltaTime;
+            }
+            else if (eatTime <= 0)
+            {
+                eatingComplete = true;
+                gameObject.GetComponent<npcMoodScript>().happyAlert();
+                stopFollowPlayer();
+                LeaveRestaurant();
+                customerPlate.GetComponent<plateScript>().DestroyFood(); //destroy food models
+                Destroy(customerPlate);
+            }
+        }
+    }
+
+    public void startOrder() //for AI reaches seat and is waiting for order
+    {
+        Debug.Log("Started Order wait timer");
+        bool angry = false;
+
+        if (orderTime > 0 && attendOrder == false)
+        {
+            orderTime -= 1 * Time.deltaTime; ;
+            
+        }
+        else if (orderTime <= 0 && angry == false) //for when timer runs out and order has not been recieved
+        {
+            angry = true;
+            gameObject.GetComponent<npcMoodScript>().angryAlert();
+            
+        }
     }
 
     public void RandomizeTarget() //this function picks a random target zone for NPC to go and seat inside the restaurant
@@ -94,8 +305,51 @@ public class GordonRamseyScript : MonoBehaviour
         }
     }
 
+    public void followPlayer() //function for AI to follow playerobject
+    {
+        agent.stoppingDistance = 3;
+        agent.updateRotation = false;
+        MoveToPoint(playerObject.transform.position);
+        FaceTarget(playerObject);
+    }
+
+    public void stopFollowPlayer()
+    {
+        agent.stoppingDistance = 0;
+        agent.updateRotation = true;
+    }
+
+
     public void MoveToPoint(Vector3 point) //this function is for moving the playerobject
     {
+        //agent.stoppingDistance = 0;
         agent.SetDestination(point);
+    }
+
+    void FaceTarget(GameObject obj) // function for turning gameObject
+    {
+        Vector3 direction = (obj.transform.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+    }
+
+    public void LeaveRestaurant() //leave restaurant script
+    {
+        MoveToPoint(leaveObject.transform.position);
+        //spawnObject.GetComponent<SpawnNPCScript>().decreaseNPC();
+        //function above decreases total number of NPCs in game, allowing spawner to spawn in more NPCs
+    }
+
+    public void giveRamseyFoodUI()
+    {
+        giveRamseyUI.SetActive(true);
+    }
+
+    public void threwFoodAway() //function runs when player throws food away
+    {
+        orderStart = false;
+        stopFollowPlayer();
+        LeaveRestaurant();
+        //play sound
     }
 }

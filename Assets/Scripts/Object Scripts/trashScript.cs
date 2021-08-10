@@ -6,6 +6,7 @@ public class trashScript : MonoBehaviour
 {
     public GameObject trashUI;
     public GameObject playerObject;
+    public GameObject ramseyAI;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,5 +29,10 @@ public class trashScript : MonoBehaviour
         GameObject plate = playerObject.GetComponent<PlayerInventory>().plateObject;
         plate.transform.parent = gameObject.transform;
         Destroy(plate);
+
+        if (ramseyAI.activeSelf == true)
+        {
+            ramseyAI.GetComponent<GordonRamseyScript>().threwFoodAway();
+        }
     }
 }

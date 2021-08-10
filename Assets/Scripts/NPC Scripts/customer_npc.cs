@@ -116,6 +116,8 @@ public class customer_npc : MonoBehaviour
         currentTime = startingTime;
         orderTime = orderStarting_time;
         eatTime = eatDuration;
+
+
     }
 
     private void Update()
@@ -191,7 +193,7 @@ public class customer_npc : MonoBehaviour
         }
     }
 
-    public void startTimer()
+    public void startTimer() // for AI waiting for their order to be receieved
     {
         bool disappointed = false;
         bool angry = false;
@@ -224,6 +226,8 @@ public class customer_npc : MonoBehaviour
             order_complete = true;
             timerStart = false;
             gameObject.GetComponent<npcMoodScript>().offAlert();
+
+            //this code transfers plate to table
             customerPlate = playerObject.GetComponent<PlayerInventory>().plateObject;
             customerPlate.transform.position = plateSelected.transform.position;
             customerPlate.transform.parent = aiObject.transform;
@@ -249,7 +253,7 @@ public class customer_npc : MonoBehaviour
         }
     }
 
-    public void startOrder()
+    public void startOrder() //for when order is taken, timer starts to for AI to wait for order
     {
         Debug.Log("Started Order wait timer");
         bool angry = false;

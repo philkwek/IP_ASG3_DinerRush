@@ -14,6 +14,7 @@ public class npcMoodScript : MonoBehaviour
     public Transform reactionSpawn; //spawn point for the image
     public GameObject parent;
 
+    [SerializeField]
     private Image uiUse;
 
     // Start is called before the first frame update

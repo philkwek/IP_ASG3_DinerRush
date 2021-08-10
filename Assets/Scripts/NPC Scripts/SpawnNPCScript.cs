@@ -243,18 +243,6 @@ public class SpawnNPCScript : MonoBehaviour
                 NPC.GetComponent<customer_npc>().orderText = orderText;
 
             }
-            else if (npc_number == 6)
-            {
-                int[] order =
-               {
-                    0,
-                    5,
-                };
-                string orderText = "Beef Steak & Sausage";
-                NPC.GetComponent<customer_npc>().assignedOrder = order;
-                NPC.GetComponent<customer_npc>().orderText = orderText;
-
-            }
 
             //newNPC.
         } else if (roundNumber == 4)
