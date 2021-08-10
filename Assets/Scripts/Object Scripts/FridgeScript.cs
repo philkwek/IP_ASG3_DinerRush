@@ -62,7 +62,7 @@ public class FridgeScript : MonoBehaviour
         {
             objective2 = true;
             var gamecontroller = GameObject.Find("GameController");
-            gamecontroller.GetComponent<RoundScript>().obj2_completion = true;
+            gamecontroller.GetComponent<RoundScript>().objUpdate(2);
         } //obj2 update code
 
         if (playerObject.GetComponent<PlayerInventory>().holdingItem == true)

@@ -6,6 +6,7 @@ public class PlayerInventory : MonoBehaviour
 {
     public int RoundIndex;
     public bool objective_completion = false;
+    public GameObject gameController;
 
     //inventory quantity
     public int Beef_Qty = 0;
@@ -51,6 +52,7 @@ public class PlayerInventory : MonoBehaviour
                 if (Beef_Qty >= 1 && Egg_Qty >= 2 && Bread_Qty >= 1 && Sausage_Qty >= 1) 
                 {
                     objective_completion = true;
+                    gameController.GetComponent<RoundScript>().objUpdate(1);
                 }
             }
 

@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
 
             else if (focusObject.transform.tag == "RestaurantOpen")
             {
-                focusObject.GetComponent<openRestaurantScript>().openDoors();
+                focusObject.GetComponent<openRestaurantScript>().openUI();
             }
 
             else if (focusObject.transform.tag == "CustomerNPC")

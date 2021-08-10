@@ -13,6 +13,7 @@ public class RoundScript : MonoBehaviour
     public bool step2 = false;
     public bool step3 = false;
     public bool step4 = false;
+    public bool step5 = false;
 
     public bool obj2_completion = false;
     public bool obj3_completion = false;
@@ -23,6 +24,7 @@ public class RoundScript : MonoBehaviour
     public GameObject round_4_objective;
 
     public GameObject Spawner;
+    public GameObject deleter;
 
     public GameObject playerObject;
     public GameObject canvas;
@@ -36,36 +38,32 @@ public class RoundScript : MonoBehaviour
         playerObject.GetComponent<PlayerInventory>().RoundIndex = SceneIndex;
 
         if (SceneIndex == 1) //checks for what round the game is in according to scene index
-        {
+        { //sets appropirate objective for the round and sets parameters for NPC spawning
             round_1_objective.SetActive(true);
             Spawner.gameObject.GetComponent<SpawnNPCScript>().max_npc = 4;
             Spawner.gameObject.GetComponent<SpawnNPCScript>().roundNumber = SceneIndex;
-            //Spawner.SetActive(true);
-            //Spawner.Spawn();
-            //sets appropirate objective for the round and sets parameters for NPC spawning
 
+            deleter.GetComponent<DeleteNPCScript>().numberOfNPCs = 4;
+            //tells deleter script how many NPCs will be spawned for objective 4
         }
         else if (SceneIndex == 2)
         {
             round_2_objective.SetActive(true);
             Spawner.gameObject.GetComponent<SpawnNPCScript>().max_npc = 5;
             Spawner.gameObject.GetComponent<SpawnNPCScript>().roundNumber = SceneIndex;
-            Spawner.SetActive(true);
 
-        } else if (SceneIndex == 3)
+            deleter.GetComponent<DeleteNPCScript>().numberOfNPCs = 4;
+            //tells deleter script how many NPCs will be spawned for objective 4
+
+        }
+        else if (SceneIndex == 3)
         {
             round_3_objective.SetActive(true);
             Spawner.gameObject.GetComponent<SpawnNPCScript>().max_npc = 6;
             Spawner.gameObject.GetComponent<SpawnNPCScript>().roundNumber = SceneIndex;
-            Spawner.SetActive(true);
 
-        } else if (SceneIndex == 4)
-        {
-            round_4_objective.SetActive(true);
-            Spawner.gameObject.GetComponent<SpawnNPCScript>().max_npc = 0;
-            Spawner.gameObject.GetComponent<SpawnNPCScript>().roundNumber = SceneIndex;
-            Spawner.SetActive(true);
-            //Spawner.gameObject.GetComponent<SpawnNPCScript>().SpawnRamsey();
+            deleter.GetComponent<DeleteNPCScript>().numberOfNPCs = 6;
+            //tells deleter script how many NPCs will be spawned for objective 4
 
         }
     }
@@ -79,28 +77,41 @@ public class RoundScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerObject.GetComponent<PlayerInventory>().objective_completion == true && step1 == false)
-        { //check for obj1 completion
+    
+    }
+
+    public void objUpdate(int objective) //objective completion function that updates objective clipboard
+    {
+        if (objective == 1)
+        {
             step1 = true;
             canvas.GetComponent<PlayerUIScript>().objectiveComplete(1);
             openClipboard();
-            //add notification sound to indicate objective update
-        }
 
-        if (step2 == false && obj2_completion == true)
-        { //checks for obj2 completion
+        } else if (objective == 2)
+        {
             step2 = true;
             canvas.GetComponent<PlayerUIScript>().objectiveComplete(2);
             openClipboard();
-            //add sound
-        }
 
-        if (step3 == false && obj3_completion == true)
-        { //objective 3 completion check
+        } else if (objective == 3)
+        {
             step3 = true;
             canvas.GetComponent<PlayerUIScript>().objectiveComplete(3);
             openClipboard();
-            Spawner.SetActive(true);
+
+        } else if (objective == 4)
+        {
+            step4 = true;
+            canvas.GetComponent<PlayerUIScript>().objectiveComplete(4);
+            openClipboard();
+
+        } else if (objective == 5)
+        {
+            step5 = true;
+            canvas.GetComponent<PlayerUIScript>().objectiveComplete(5);
+            openClipboard();
+
         }
     }
 
