@@ -10,14 +10,23 @@ public class customer_npc : MonoBehaviour
     //public Transform target; //target position for NPC to travel to
     //public Transform turn_target; // target direction to turn to
     public GameObject[] AI_targets; // Array of all target positions for AI to travel to
+    public GameObject aiObject;
     public GameObject[] AI_targets_face;// Array of all target position for AI to face once seat is reached
+    public GameObject[] plateTransform; // Array of all plate positions for when NPC recieves food
+    public GameObject plateSelected;
+
+    public GameObject customerPlate;
+
     public GameObject[] NPC_Model; //Array of the 2 NPC models for use
 
     public int[] assignedOrder; //assigned order by spawner (unique to each NPC)
     public string orderText; //order text
+    public int[] receivedOrder; //for when player gives order to customer
 
     public bool ordered = false;
     public bool order_received = false;
+    public bool order_complete = false;
+    public bool orderCorrect = false;
 
     public bool orderTimer = false;
     public bool timerStart = false;
@@ -29,6 +38,10 @@ public class customer_npc : MonoBehaviour
     public float orderTime = 0f;
     public float orderStarting_time = 50f;
 
+    public float eatDuration = 5.0f;
+    public float eatTime = 0f;
+    public bool eatingComplete = false;
+
     private int target_index;
     private int npc_model;
 
@@ -36,6 +49,7 @@ public class customer_npc : MonoBehaviour
     private GameObject leaveObject;
 
     public GameObject canvas;
+    public GameObject playerObject;
 
     private void Awake()
     {
@@ -70,8 +84,23 @@ public class customer_npc : MonoBehaviour
         AI_targets_face[12] = GameObject.Find("AiTarget_Face_12");
         //add on here for additional seating locations
 
+        plateTransform[0] = GameObject.Find("Location0");
+        plateTransform[1] = GameObject.Find("Location1");
+        plateTransform[2] = GameObject.Find("Location2");
+        plateTransform[3] = GameObject.Find("Location3");
+        plateTransform[4] = GameObject.Find("Location4");
+        plateTransform[5] = GameObject.Find("Location5");
+        plateTransform[6] = GameObject.Find("Location6");
+        plateTransform[7] = GameObject.Find("Location7");
+        plateTransform[8] = GameObject.Find("Location8");
+        plateTransform[9] = GameObject.Find("Location9");
+        plateTransform[10] = GameObject.Find("Location10");
+        plateTransform[11] = GameObject.Find("Location11");
+        plateTransform[12] = GameObject.Find("Location12");
+
         spawnObject = GameObject.Find("NPC_Spawn");
         leaveObject = GameObject.Find("NPC_Leave");
+        playerObject = GameObject.Find("player_model");
 
         canvas = GameObject.Find("Canvas");
     }
@@ -86,6 +115,7 @@ public class customer_npc : MonoBehaviour
 
         currentTime = startingTime;
         orderTime = orderStarting_time;
+        eatTime = eatDuration;
     }
 
     private void Update()
@@ -99,12 +129,17 @@ public class customer_npc : MonoBehaviour
         if (timerStart == true)
         {
             startTimer();
-            Debug.Log(currentTime.ToString("0"));
+            //Debug.Log(currentTime.ToString("0"));
         }
 
         if (orderStart == true)
         {
             startOrder();
+        }
+
+        if (order_complete == true)
+        {
+            eatingFood();
         }
     }
 
@@ -119,6 +154,41 @@ public class customer_npc : MonoBehaviour
             ordered = true;
         }
         
+    }
+
+    public void checkOrder(int[] dishes)
+    {
+        Debug.Log("Order Check running");
+        var numberOfDishes = dishes.GetLength(0);
+        var numberCheck = 0;
+        Debug.Log(dishes[0]);
+
+        for (int i = 0; i < numberOfDishes; i++)
+        {
+            Debug.Log("Checking dish" + dishes[i]);
+
+            for (int x = 0; x < numberOfDishes; x++)
+            {
+                if (dishes[i] == assignedOrder[x])
+                {
+                    numberCheck += 1;
+                    Debug.Log("Found match: " + numberCheck);
+                }
+            }
+        }
+
+        if (numberCheck == numberOfDishes)
+        {
+            orderCorrect = true;
+            canvas.GetComponent<orderScript>().toggleOrderAlert(true);
+            order_received = true;
+            
+
+        } else if (numberCheck != numberOfDishes)
+        {
+            orderCorrect = false;
+            canvas.GetComponent<orderScript>().toggleOrderAlert(false);
+        }
     }
 
     public void startTimer()
@@ -141,16 +211,41 @@ public class customer_npc : MonoBehaviour
 
             }
 
-            if (currentTime <= 0 && angry == false)
+            if (currentTime <= 0 && angry == false && timerStart == true)
             {
-
+                timerStart = false;
                 angry = true;
                 gameObject.GetComponent<npcMoodScript>().angryAlert();
                 LeaveRestaurant();
             }
-        } else
+
+        } else if (order_complete == false) //code runs when order is complete & correct
         {
-            //run code for when order is received
+            order_complete = true;
+            timerStart = false;
+            gameObject.GetComponent<npcMoodScript>().offAlert();
+            customerPlate = playerObject.GetComponent<PlayerInventory>().plateObject;
+            customerPlate.transform.position = plateSelected.transform.position;
+            customerPlate.transform.parent = aiObject.transform;
+ 
+        }
+    }
+
+    public void eatingFood()
+    {
+        if (eatingComplete == false)
+        {
+            if (eatTime > 0)
+            {
+                eatTime -= 1 * Time.deltaTime;
+
+            } else if (eatTime <= 0)
+            {
+                eatingComplete = true;
+                gameObject.GetComponent<npcMoodScript>().happyAlert();
+                LeaveRestaurant();
+                customerPlate.GetComponent<plateScript>().DestroyFood(); //destroy food models
+            }
         }
     }
 
@@ -188,6 +283,9 @@ public class customer_npc : MonoBehaviour
             if (AI_targets[target_index] != null)
             {
                 MoveToPoint(AI_targets[target_index].transform.position);
+                aiObject = plateTransform[target_index];
+                plateSelected = plateTransform[target_index];
+
                 Debug.Log("AI is going to location: " + target_index);
                 target_exist = true;
                 break;

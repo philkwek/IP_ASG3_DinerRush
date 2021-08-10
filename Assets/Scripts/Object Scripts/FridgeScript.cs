@@ -122,7 +122,7 @@ public class FridgeScript : MonoBehaviour
     public void takeBread()
     {
         int itemIndex = 1;
-        if (playerObject.GetComponent<PlayerInventory>().holdingItem == false && Beef_Qty > 0)
+        if (playerObject.GetComponent<PlayerInventory>().holdingItem == false && Bread_Qty > 0)
         {
             playerObject.GetComponent<PlayerInventory>().holdItem(itemIndex);
             Bread_Qty -= 1;
@@ -137,7 +137,7 @@ public class FridgeScript : MonoBehaviour
             alert_gameobject[itemIndex].SetActive(true);
 
         }
-        else if (Beef_Qty <= 0)
+        else if (Bread_Qty <= 0)
         {
             alert_text[itemIndex].text = "No more of selected food!";
             alert_gameobject[itemIndex].SetActive(true);
@@ -147,7 +147,7 @@ public class FridgeScript : MonoBehaviour
     public void takeCorn()
     {
         int itemIndex = 2;
-        if (playerObject.GetComponent<PlayerInventory>().holdingItem == false && Beef_Qty > 0)
+        if (playerObject.GetComponent<PlayerInventory>().holdingItem == false && Corn_Qty > 0)
         {
             playerObject.GetComponent<PlayerInventory>().holdItem(itemIndex);
             Corn_Qty -= 1;
@@ -162,7 +162,7 @@ public class FridgeScript : MonoBehaviour
             alert_gameobject[itemIndex].SetActive(true);
 
         }
-        else if (Beef_Qty <= 0)
+        else if (Corn_Qty <= 0)
         {
             alert_text[itemIndex].text = "No more of selected food!";
             alert_gameobject[itemIndex].SetActive(true);
@@ -172,7 +172,7 @@ public class FridgeScript : MonoBehaviour
     public void takeEgg()
     {
         int itemIndex = 3;
-        if (playerObject.GetComponent<PlayerInventory>().holdingItem == false && Beef_Qty > 0)
+        if (playerObject.GetComponent<PlayerInventory>().holdingItem == false && Egg_Qty > 0)
         {
             playerObject.GetComponent<PlayerInventory>().holdItem(itemIndex);
             Egg_Qty -= 1;
@@ -187,7 +187,7 @@ public class FridgeScript : MonoBehaviour
             alert_gameobject[itemIndex].SetActive(true);
 
         }
-        else if (Beef_Qty <= 0)
+        else if (Egg_Qty <= 0)
         {
             alert_text[itemIndex].text = "No more of selected food!";
             alert_gameobject[itemIndex].SetActive(true);
@@ -197,7 +197,7 @@ public class FridgeScript : MonoBehaviour
     public void takePotato()
     {
         int itemIndex = 4;
-        if (playerObject.GetComponent<PlayerInventory>().holdingItem == false && Beef_Qty > 0)
+        if (playerObject.GetComponent<PlayerInventory>().holdingItem == false && Potato_Qty > 0)
         {
             playerObject.GetComponent<PlayerInventory>().holdItem(itemIndex);
             Potato_Qty -= 1;
@@ -212,7 +212,7 @@ public class FridgeScript : MonoBehaviour
             alert_gameobject[itemIndex].SetActive(true);
 
         }
-        else if (Beef_Qty <= 0)
+        else if (Potato_Qty <= 0)
         {
             alert_text[itemIndex].text = "No more of selected food!";
             alert_gameobject[itemIndex].SetActive(true);
@@ -222,7 +222,7 @@ public class FridgeScript : MonoBehaviour
     public void takeSausage()
     {
         int itemIndex = 5;
-        if (playerObject.GetComponent<PlayerInventory>().holdingItem == false && Beef_Qty > 0)
+        if (playerObject.GetComponent<PlayerInventory>().holdingItem == false && Sausage_Qty > 0)
         {
             playerObject.GetComponent<PlayerInventory>().holdItem(itemIndex);
             Sausage_Qty -= 1;
@@ -237,7 +237,7 @@ public class FridgeScript : MonoBehaviour
             alert_gameobject[itemIndex].SetActive(true);
 
         }
-        else if (Beef_Qty <= 0)
+        else if (Sausage_Qty <= 0)
         {
             alert_text[itemIndex].text = "No more of selected food!";
             alert_gameobject[itemIndex].SetActive(true);
@@ -247,7 +247,7 @@ public class FridgeScript : MonoBehaviour
     public void takeBeans()
     {
         int itemIndex = 6;
-        if (playerObject.GetComponent<PlayerInventory>().holdingItem == false && Beef_Qty > 0)
+        if (playerObject.GetComponent<PlayerInventory>().holdingItem == false && Beans_Qty > 0)
         {
             playerObject.GetComponent<PlayerInventory>().holdItem(itemIndex);
             Beans_Qty -= 1;
@@ -262,7 +262,7 @@ public class FridgeScript : MonoBehaviour
             alert_gameobject[itemIndex].SetActive(true);
 
         }
-        else if (Beef_Qty <= 0)
+        else if (Beans_Qty <= 0)
         {
             alert_text[itemIndex].text = "No more of selected food!";
             alert_gameobject[itemIndex].SetActive(true);

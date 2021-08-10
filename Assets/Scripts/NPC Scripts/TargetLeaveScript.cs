@@ -37,13 +37,7 @@ public class TargetLeaveScript : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.transform.tag == "CustomerNPC")
-        {
-            Target.SetActive(true);
-        }
-    }
+    
 
     public void leaveFunction() //temporary function to test deletion of NPCs
     {

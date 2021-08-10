@@ -10,6 +10,8 @@ TagManager:
   - Merchant_AI
   - Fridge
   - RestaurantOpen
+  - FryingPan
+  - Plate
   layers:
   - Default
   - TransparentFX

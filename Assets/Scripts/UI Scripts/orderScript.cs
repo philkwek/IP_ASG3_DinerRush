@@ -27,11 +27,46 @@ public class orderScript : MonoBehaviour
     public TextMeshProUGUI orderUI_text;
 
     public GameObject orderMenu;
+    public GameObject playerObject;
+    public GameObject npc;
+
+    public GameObject correctOrder;
+    public GameObject wrongOrder;
 
     public void orderMenuOpen()
     {
         orderUI_text.text = orderText;
         orderMenu.SetActive(true);
+    }
+
+    public void giveOrder()
+    {
+        Debug.Log("Order script check running");
+        int[] dish;
+        dish = playerObject.GetComponent<PlayerInventory>().currentDish;
+        Debug.Log(dish);
+        npc.GetComponent<customer_npc>().checkOrder(dish);
+        playerObject.GetComponent<PlayerInventory>().currentDish = null;
+    }
+
+    public void placeFood()
+    {
+        if (playerObject.GetComponent<PlayerController>().focusObject.transform.tag == "Plate")
+        {
+            GameObject plate = playerObject.GetComponent<PlayerController>().focusObject;
+            plate.GetComponent<plateScript>().placeFood();
+        }
+    }
+
+    public void toggleOrderAlert(bool status) //for telling player if order is right or wrong
+    {
+        if (status == true)
+        {
+            correctOrder.SetActive(true);
+        } else
+        {
+            wrongOrder.SetActive(true);
+        }
     }
 
     public void takeOrder()

@@ -16,7 +16,7 @@ public class SpawnNPCScript : MonoBehaviour
     private GameObject ramseyPrefab;
 
     [SerializeField]
-    private float spawnDelay = 10; // sets spawn rate of the NPC
+    private float spawnDelay = 20; // sets spawn rate of the NPC
 
     public GameObject[] AI_targets; // this check is to ensure the spawner does not spawn when there are no more areas left
 
