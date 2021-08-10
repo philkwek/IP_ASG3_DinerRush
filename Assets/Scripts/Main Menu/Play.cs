@@ -7,7 +7,22 @@ public class Play : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("round1");
+    }
+
+    public void round2()
+    {
+        SceneManager.LoadScene("round2");
+    }
+
+    public void round3()
+    {
+        SceneManager.LoadScene("round3");
+    }
+
+    public void round4()
+    {
+        SceneManager.LoadScene("round4");
     }
 
     public void MainMenu()
