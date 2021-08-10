@@ -8,6 +8,7 @@ public class plateScript : MonoBehaviour
     public GameObject heldFood;
     public int foodIndex;
 
+    public Transform playerHoldPlate; // for when player wants to hold plate
     public Transform spawnPlatePosition; //this is for the plate
     public GameObject platePrefab;
 
@@ -36,6 +37,7 @@ public class plateScript : MonoBehaviour
         //plateUI = GameObject.Find("PlateUI");
         canvas = GameObject.Find("Canvas");
         playerObject = GameObject.Find("player_model");
+    
         //spawnPl
     }
 
@@ -126,7 +128,7 @@ public class plateScript : MonoBehaviour
 
     public void takePlate()
     {
-        gameObject.transform.position = spawnPlatePosition.position;
+        gameObject.transform.position = playerHoldPlate.position;
         gameObject.transform.parent = playerObject.transform;
 
         if (numberOfFood == 3)
@@ -143,9 +145,12 @@ public class plateScript : MonoBehaviour
         
         var plate = Instantiate(platePrefab, spawnPlatePosition.position, spawnPlatePosition.rotation);
 
+        plate.GetComponent<plateScript>().playerHoldPlate = playerHoldPlate;
         plate.GetComponent<plateScript>().plateUI = plateUI;
         plate.GetComponent<plateScript>().spawnPlatePosition = spawnPlatePosition;
         plate.GetComponent<plateScript>().platePrefab = platePrefab;
 
     }
+
+
 }

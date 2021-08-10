@@ -23,6 +23,7 @@ public class customer_npc : MonoBehaviour
 
     public bool ordered = false;
     public bool order_received = false;
+    public bool order_complete = false;
     public bool orderCorrect = false;
 
     public bool orderTimer = false;
@@ -205,8 +206,9 @@ public class customer_npc : MonoBehaviour
                 gameObject.GetComponent<npcMoodScript>().angryAlert();
                 LeaveRestaurant();
             }
-        } else
+        } else if (order_complete == false)
         {
+            order_complete = true;
             gameObject.GetComponent<npcMoodScript>().offAlert();
             GameObject plate = playerObject.GetComponent<PlayerInventory>().plateObject;
             plate.transform.position = plateSelected.transform.position;

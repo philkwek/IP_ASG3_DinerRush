@@ -81,8 +81,9 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.E)) //interaction w object codes
+        if (Input.GetKeyDown(KeyCode.E) && focusObject != null) //interaction w object codes
         {
+
             if(focusObject.transform.tag == "Merchant_AI" && minimart == true)
             {
                 MerchantUI.SetActive(true);

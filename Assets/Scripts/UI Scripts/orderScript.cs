@@ -49,6 +49,15 @@ public class orderScript : MonoBehaviour
         playerObject.GetComponent<PlayerInventory>().currentDish = null;
     }
 
+    public void placeFood()
+    {
+        if (playerObject.GetComponent<PlayerController>().focusObject.transform.tag == "Plate")
+        {
+            GameObject plate = playerObject.GetComponent<PlayerController>().focusObject;
+            plate.GetComponent<plateScript>().placeFood();
+        }
+    }
+
     public void toggleOrderAlert(bool status) //for telling player if order is right or wrong
     {
         if (status == true)
