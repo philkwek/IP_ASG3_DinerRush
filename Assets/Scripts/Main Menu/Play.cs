@@ -12,7 +12,7 @@ public class Play : MonoBehaviour
 
     public void MainMenu()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        SceneManager.LoadScene("main_menu");
     }
 
     public void QuitGame()
