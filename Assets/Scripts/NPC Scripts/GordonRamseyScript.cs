@@ -57,6 +57,10 @@ public class GordonRamseyScript : MonoBehaviour
     public bool angry = false;
     public bool disappointed = false;
 
+    //Audio files for Gordon Ramsey Reactions
+    public AudioClip delicious;
+
+
     private void Awake()
     {
 
@@ -199,7 +203,7 @@ public class GordonRamseyScript : MonoBehaviour
 
 
         }
-        else if (numberCheck != numberOfDishes)
+        else if (numberCheck != numberOfDishes) // function to run when order given is wrong
         {
             orderCorrect = false;
             canvas.GetComponent<orderScript>().toggleOrderAlert(false);
@@ -225,9 +229,15 @@ public class GordonRamseyScript : MonoBehaviour
                 timerStart = false;
                 angry = true;
 
-                gameObject.GetComponent<npcMoodScript>().angryAlert();
+                void angryAlert()
+                {
+                    gameObject.GetComponent<npcMoodScript>().angryAlert();
+                }
+
+                gameObject.GetComponent<npcMoodScript>().tooLongOrder();
                 stopFollowPlayer();
-                LeaveRestaurant();
+                Invoke("LeaveRestaurant", 5.0f);
+                Invoke("angryAlert", 5.0f);
             }
 
         }
@@ -347,9 +357,18 @@ public class GordonRamseyScript : MonoBehaviour
 
     public void threwFoodAway() //function runs when player throws food away
     {
+        void angryReaction()
+        {
+            gameObject.GetComponent<npcMoodScript>().angryAlert();
+        }
+
         orderStart = false;
+        gameObject.GetComponent<npcMoodScript>().wasteFoodOrder();
         stopFollowPlayer();
-        LeaveRestaurant();
-        //play sound
+        Invoke("LeaveRestaurant", 5.0f);
+        Invoke("angryReaction", 5.0f);
+        //text
     }
+
+    
 }

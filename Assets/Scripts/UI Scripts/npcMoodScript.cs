@@ -10,6 +10,8 @@ public class npcMoodScript : MonoBehaviour
     public Image disappointed;
     public Image angry;
     public Image wrong;
+    public Image tooLong; // Gordon Ramsey reaction
+    public Image wasteFood; // Gordon Ramsey reaction
 
     public Transform reactionSpawn; //spawn point for the image
     public GameObject parent;
@@ -89,6 +91,28 @@ public class npcMoodScript : MonoBehaviour
         }
 
         uiUse = Instantiate(wrong, FindObjectOfType<Canvas>().transform).GetComponent<Image>();
+        uiUse.transform.parent = parent.transform;
+    }
+
+    public void tooLongOrder()
+    {
+        if (uiUse != null) //ensures that previous reactions are cleared before initating code
+        {
+            Destroy(uiUse);
+        }
+
+        uiUse = Instantiate(tooLong, FindObjectOfType<Canvas>().transform).GetComponent<Image>();
+        uiUse.transform.parent = parent.transform;
+    }
+
+    public void wasteFoodOrder()
+    {
+        if (uiUse != null) //ensures that previous reactions are cleared before initating code
+        {
+            Destroy(uiUse);
+        }
+
+        uiUse = Instantiate(wasteFood, FindObjectOfType<Canvas>().transform).GetComponent<Image>();
         uiUse.transform.parent = parent.transform;
     }
 }
