@@ -25,6 +25,7 @@ public class RoundScript : MonoBehaviour
 
     public GameObject Spawner;
     public GameObject deleter;
+    public GameObject GordonRamsey;
 
     public GameObject playerObject;
     public GameObject canvas;
@@ -145,5 +146,10 @@ public class RoundScript : MonoBehaviour
         }
         yield return null;
         FadeScene.SetActive(false);
+    }
+
+    public void spawnGordonRamsey()
+    {
+        GordonRamsey.SetActive(true);
     }
 }

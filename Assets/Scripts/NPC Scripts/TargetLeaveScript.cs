@@ -26,22 +26,46 @@ public class TargetLeaveScript : MonoBehaviour
     {
         if (other.transform.tag == "CustomerNPC" || other.transform.tag == "GordonRamsey")
         {
-            Target.SetActive(false); //disables target so spawner knows that seat has been occupied
-
-            NPC = other.gameObject;
-
-            NPC.GetComponent<npcMoodScript>().orderAlert();
-
             if (other.transform.tag == "CustomerNPC")
             {
-                NPC.GetComponent<customer_npc>().orderStart = true;
-            } else
+                if (other.gameObject.GetComponent<customer_npc>().orderStart == false)
+                {
+                    Target.SetActive(false); //disables target so spawner knows that seat has been occupied
+
+                    NPC = other.gameObject;
+
+                    NPC.GetComponent<npcMoodScript>().orderAlert();
+
+                    if (other.transform.tag == "CustomerNPC")
+                    {
+                        NPC.GetComponent<customer_npc>().orderStart = true;
+                    }
+                    else
+                    {
+                        NPC.GetComponent<GordonRamseyScript>().orderStart = true;
+                    }
+                }
+            } else if (other.transform.tag == "GordonRamsey")
             {
-                NPC.GetComponent<GordonRamseyScript>().orderStart = true;
+                if (other.gameObject.GetComponent<GordonRamseyScript>().orderStart == false)
+                {
+                    Target.SetActive(false); //disables target so spawner knows that seat has been occupied
+
+                    NPC = other.gameObject;
+
+                    NPC.GetComponent<npcMoodScript>().orderAlert();
+
+                    if (other.transform.tag == "CustomerNPC")
+                    {
+                        NPC.GetComponent<customer_npc>().orderStart = true;
+                    }
+                    else
+                    {
+                        NPC.GetComponent<GordonRamseyScript>().orderStart = true;
+                    }
+                }
             }
             
-
-            //Invoke("leaveFunction", 5.0f); // temporary function to test leaving script
         }
     }
 

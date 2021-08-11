@@ -32,7 +32,7 @@ public class GordonRamseyScript : MonoBehaviour
     public bool attendOrder = false;
 
     public float currentTime = 0f;
-    public float startingTime = 120f;
+    public float startingTime = 60;
     public float orderTime = 0f;
     public float orderStarting_time = 50f;
 
@@ -43,8 +43,14 @@ public class GordonRamseyScript : MonoBehaviour
     private int target_index;
     private int npc_model;
 
+    [SerializeField]
     private GameObject spawnObject;
+    [SerializeField]
     private GameObject leaveObject;
+    [SerializeField]
+    private bool followNPC;
+    [SerializeField]
+    private bool isLeaving = false;
 
     public GameObject canvas;
     public GameObject giveRamseyUI;
@@ -57,8 +63,8 @@ public class GordonRamseyScript : MonoBehaviour
     public bool angry = false;
     public bool disappointed = false;
 
-    //Audio files for Gordon Ramsey Reactions
-    public AudioClip delicious;
+    //Audio for delicious reaction
+    public AudioSource delicious;
 
 
     private void Awake()
@@ -177,20 +183,23 @@ public class GordonRamseyScript : MonoBehaviour
     public void checkOrder(int[] dishes)
     {
         Debug.Log("Order Check running");
-        var numberOfDishes = dishes.GetLength(0);
+        var numberOfDishes = assignedOrder.GetLength(0);
         var numberCheck = 0;
         Debug.Log(dishes[0]);
 
-        for (int i = 0; i < numberOfDishes; i++)
+        if (numberOfDishes == dishes.GetLength(0))
         {
-            Debug.Log("Checking dish" + dishes[i]);
-
-            for (int x = 0; x < numberOfDishes; x++)
+            for (int i = 0; i < numberOfDishes; i++)
             {
-                if (dishes[i] == assignedOrder[x])
+                Debug.Log("Checking dish" + dishes[i]);
+
+                for (int x = 0; x < numberOfDishes; x++)
                 {
-                    numberCheck += 1;
-                    Debug.Log("Found match: " + numberCheck);
+                    if (dishes[i] == assignedOrder[x])
+                    {
+                        numberCheck += 1;
+                        Debug.Log("Found match: " + numberCheck);
+                    }
                 }
             }
         }
@@ -207,8 +216,10 @@ public class GordonRamseyScript : MonoBehaviour
         {
             orderCorrect = false;
             canvas.GetComponent<orderScript>().toggleOrderAlert(false);
-            gameObject.GetComponent<npcMoodScript>().angryAlert();
-            LeaveRestaurant();
+            gameObject.GetComponent<npcMoodScript>().ramseyWrongOrder();
+
+            Invoke("angryReaction", 5.0f);
+            Invoke("LeaveRestaurant", 5.0f);
         }
     }
 
@@ -216,32 +227,28 @@ public class GordonRamseyScript : MonoBehaviour
     { // total time => 120s
         
 
-        if (order_received != true)
+        if (order_received != true && isLeaving == false && orderCorrect == false)
         {
             if (currentTime > 0)
             {
                 currentTime -= 1 * Time.deltaTime;
+                followNPC = true;
                 followPlayer();
             }
 
-            if (currentTime < 60 && angry == false && timerStart == true)
+            if (currentTime <= 0 && angry == false && timerStart == true)
             {
                 timerStart = false;
                 angry = true;
 
-                void angryAlert()
-                {
-                    gameObject.GetComponent<npcMoodScript>().angryAlert();
-                }
-
                 gameObject.GetComponent<npcMoodScript>().tooLongOrder();
                 stopFollowPlayer();
                 Invoke("LeaveRestaurant", 5.0f);
-                Invoke("angryAlert", 5.0f);
+                Invoke("angryReaction", 5.0f);
             }
 
         }
-        else if (order_complete == false) //code runs when order is complete & correct
+        else if (order_complete == false && orderCorrect == true) //code runs when order is complete & correct
         {
             order_complete = true;
             timerStart = false;
@@ -256,7 +263,7 @@ public class GordonRamseyScript : MonoBehaviour
     }
 
 
-    public void eatingFood() //function for AI "eating" food
+    public void eatingFood() //function for AI "eating" food, runs after order_complete is true
     {
         if (eatingComplete == false)
         {
@@ -268,6 +275,7 @@ public class GordonRamseyScript : MonoBehaviour
             {
                 eatingComplete = true;
                 gameObject.GetComponent<npcMoodScript>().happyAlert();
+                delicious.Play();
                 stopFollowPlayer();
                 LeaveRestaurant();
                 customerPlate.GetComponent<plateScript>().DestroyFood(); //destroy food models
@@ -289,7 +297,10 @@ public class GordonRamseyScript : MonoBehaviour
         else if (orderTime <= 0 && angry == false) //for when timer runs out and order has not been recieved
         {
             angry = true;
-            gameObject.GetComponent<npcMoodScript>().angryAlert();
+            gameObject.GetComponent<npcMoodScript>().ramseyNoOrder();
+            Invoke("LeaveRestaurant", 5.0f);
+            Invoke("angryReaction", 5.0f);
+            
             
         }
     }
@@ -317,14 +328,19 @@ public class GordonRamseyScript : MonoBehaviour
 
     public void followPlayer() //function for AI to follow playerobject
     {
-        agent.stoppingDistance = 3;
-        agent.updateRotation = false;
-        MoveToPoint(playerObject.transform.position);
-        FaceTarget(playerObject);
+        if (followNPC == true)
+        {
+            //followNPC = true;
+            agent.stoppingDistance = 3;
+            agent.updateRotation = false;
+            MoveToPoint(playerObject.transform.position);
+            FaceTarget(playerObject);
+        }
     }
 
     public void stopFollowPlayer()
     {
+        followNPC = false;
         agent.stoppingDistance = 0;
         agent.updateRotation = true;
     }
@@ -345,6 +361,9 @@ public class GordonRamseyScript : MonoBehaviour
 
     public void LeaveRestaurant() //leave restaurant script
     {
+        isLeaving = true;
+        Debug.Log("Ramsey leaving Restaurant");
+        stopFollowPlayer();
         MoveToPoint(leaveObject.transform.position);
         //spawnObject.GetComponent<SpawnNPCScript>().decreaseNPC();
         //function above decreases total number of NPCs in game, allowing spawner to spawn in more NPCs
@@ -357,11 +376,6 @@ public class GordonRamseyScript : MonoBehaviour
 
     public void threwFoodAway() //function runs when player throws food away
     {
-        void angryReaction()
-        {
-            gameObject.GetComponent<npcMoodScript>().angryAlert();
-        }
-
         orderStart = false;
         gameObject.GetComponent<npcMoodScript>().wasteFoodOrder();
         stopFollowPlayer();
@@ -370,5 +384,10 @@ public class GordonRamseyScript : MonoBehaviour
         //text
     }
 
-    
+    void angryReaction()
+    {
+        gameObject.GetComponent<npcMoodScript>().angryAlert();
+    }
+
+
 }
