@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class trashScript : MonoBehaviour
 {
+    public AudioSource sound;
+
     public GameObject trashUI;
     public GameObject playerObject;
     public GameObject ramseyAI;
@@ -29,6 +31,7 @@ public class trashScript : MonoBehaviour
         GameObject plate = playerObject.GetComponent<PlayerInventory>().plateObject;
         plate.transform.parent = gameObject.transform;
         Destroy(plate);
+        sound.Play();
 
         if (ramseyAI.gameObject.activeSelf == true)
         {

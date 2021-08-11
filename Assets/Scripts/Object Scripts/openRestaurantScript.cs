@@ -13,6 +13,9 @@ public class openRestaurantScript : MonoBehaviour
     public GameObject close; //for player intending to close restaurant in the end
     public GameObject roundEnd;
 
+    public AudioSource sound;
+
+
     public void openDoors()
     {
         if (gameController.GetComponent<RoundScript>().step1 == true && gameController.GetComponent<RoundScript>().step2 == true)
@@ -21,6 +24,9 @@ public class openRestaurantScript : MonoBehaviour
             spawner.SetActive(true);
             close.SetActive(true);
             ui.SetActive(false);
+            Debug.Log(sound.name);
+            playAudio();
+
         } else
         {
             warning.SetActive(true);
@@ -38,6 +44,11 @@ public class openRestaurantScript : MonoBehaviour
         {
             warning2.SetActive(true);
         }
+    }
+
+    public void playAudio()
+    {
+        sound.Play();
     }
 
     public void openUI()

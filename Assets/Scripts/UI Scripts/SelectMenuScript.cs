@@ -13,16 +13,23 @@ public class SelectMenuScript : MonoBehaviour
     public GameObject buybutton;
     public GameObject Confirm;
     public TextMeshProUGUI Confirm_Message;
+
+    public AudioSource sound;
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    void soundPlay()
+    {
+        sound.Play();
     }
 
     public void CloseMenu()
@@ -55,6 +62,7 @@ public class SelectMenuScript : MonoBehaviour
     {
         if (buybutton.name == "Corn_Buy")
         {
+            soundPlay();
             PlayerInventory.GetComponent<PlayerInventory>().Corn_Qty += quantity;
             string message = "Bought " + quantity + " Corn!";
             Confirm_Message.text = message;
@@ -63,6 +71,7 @@ public class SelectMenuScript : MonoBehaviour
 
         } else if (buybutton.name == "Beef_Buy")
         {
+            soundPlay();
             PlayerInventory.GetComponent<PlayerInventory>().Beef_Qty += quantity;
             string message = "Bought " + quantity + " Beef!";
             Confirm_Message.text = message;
@@ -71,6 +80,7 @@ public class SelectMenuScript : MonoBehaviour
 
         } else if (buybutton.name == "Potato_Buy")
         {
+            soundPlay();
             PlayerInventory.GetComponent<PlayerInventory>().Potato_Qty += quantity;
             string message = "Bought " + quantity + " Potatos!";
             Confirm_Message.text = message;
@@ -79,6 +89,7 @@ public class SelectMenuScript : MonoBehaviour
 
         } else if (buybutton.name == "Sausage_Buy")
         {
+            soundPlay();
             PlayerInventory.GetComponent<PlayerInventory>().Sausage_Qty += quantity;
             string message = "Bought " + quantity + " Sausages!";
             Confirm_Message.text = message;
@@ -87,6 +98,7 @@ public class SelectMenuScript : MonoBehaviour
 
         } else if (buybutton.name == "Egg_Buy")
         {
+            soundPlay();
             PlayerInventory.GetComponent<PlayerInventory>().Egg_Qty += quantity;
             string message = "Bought " + quantity + " Eggs!";
             Confirm_Message.text = message;
@@ -95,6 +107,7 @@ public class SelectMenuScript : MonoBehaviour
 
         } else if (buybutton.name == "Bread_Buy")
         {
+            soundPlay();
             PlayerInventory.GetComponent<PlayerInventory>().Bread_Qty += quantity;
             string message = "Bought " + quantity + " Bread!";
             Confirm_Message.text = message;
@@ -103,6 +116,7 @@ public class SelectMenuScript : MonoBehaviour
 
         } else if (buybutton.name == "Beans_Buy")
         {
+            soundPlay();
             PlayerInventory.GetComponent<PlayerInventory>().Beans_Qty += quantity;
             string message = "Bought " + quantity + " cans of Beans!";
             Confirm_Message.text = message;

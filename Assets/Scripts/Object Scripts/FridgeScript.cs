@@ -7,6 +7,10 @@ public class FridgeScript : MonoBehaviour
 {
     private bool objective2 = false;
 
+    public AudioSource sound;
+    public AudioClip fridgeOpen;
+    public AudioClip fridgeClose;
+
     public GameObject gameManager;
     public GameObject fridgeUI;
     public Animator fridge;
@@ -46,12 +50,16 @@ public class FridgeScript : MonoBehaviour
 
     public void openFridge()
     {
+        sound.clip = fridgeOpen;
+        sound.Play();
         fridge.SetBool("fridge_open", true);
         Invoke("enableFridgeUI", 1.0f);
     }
 
     public void closeFridge()
     {
+        sound.clip = fridgeClose;
+        sound.Play();
         fridge.SetBool("fridge_open", false);
     }
 

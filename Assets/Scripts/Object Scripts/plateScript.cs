@@ -30,6 +30,8 @@ public class plateScript : MonoBehaviour
     public GameObject playerObject;
     public GameObject canvas;
 
+    public AudioSource sound;
+
 
 
     private void Start()
@@ -128,6 +130,7 @@ public class plateScript : MonoBehaviour
 
     public void takePlate() //function for taking plate from kitchen counter
     {
+        sound.Play();
         gameObject.transform.position = playerHoldPlate.position;
         gameObject.transform.parent = playerObject.transform;
 
