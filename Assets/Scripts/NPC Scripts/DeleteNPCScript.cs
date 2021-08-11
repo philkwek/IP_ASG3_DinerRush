@@ -21,6 +21,7 @@ public class DeleteNPCScript : MonoBehaviour
             if (deletedNPCs == numberOfNPCs)
             {
                 gameController.GetComponent<RoundScript>().objUpdate(4);
+                //Invoke("endGame", 3.0f);
             }
 
             if (other.gameObject.GetComponent<customer_npc>().order_received == true)
@@ -35,5 +36,10 @@ public class DeleteNPCScript : MonoBehaviour
             Destroy(other.gameObject);
             //SpawnObject.GetComponent<SpawnNPCScript>().decreaseNPC();
         }
+    }
+
+    public void endGame()
+    {
+        roundEnd.SetActive(true);
     }
 }

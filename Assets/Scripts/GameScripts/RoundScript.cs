@@ -121,6 +121,11 @@ public class RoundScript : MonoBehaviour
         canvas.gameObject.GetComponent<PlayerUIScript>().clipboardToggle();   
     }
 
+    public void FadeToBlack()
+    {
+        StartCoroutine(DoFadeIn());
+    }
+
     IEnumerator DoFadeIn()
     {
         CanvasGroup canvasGroup = FadeScene.GetComponent<CanvasGroup>();

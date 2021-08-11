@@ -188,7 +188,8 @@ public class customer_npc : MonoBehaviour
             orderCorrect = true;
             canvas.GetComponent<orderScript>().toggleOrderAlert(true);
             order_received = true;
-            
+            playerObject.GetComponent<PlayerInventory>().currentDish = null;
+
 
         } else if (numberCheck != numberOfDishes)
         {

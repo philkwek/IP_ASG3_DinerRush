@@ -30,7 +30,7 @@ public class trashScript : MonoBehaviour
         plate.transform.parent = gameObject.transform;
         Destroy(plate);
 
-        if (ramseyAI.activeSelf == true)
+        if (ramseyAI.gameObject.activeSelf == true)
         {
             ramseyAI.GetComponent<GordonRamseyScript>().threwFoodAway();
         }

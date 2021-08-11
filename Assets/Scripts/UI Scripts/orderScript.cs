@@ -32,6 +32,7 @@ public class orderScript : MonoBehaviour
 
     public GameObject correctOrder;
     public GameObject wrongOrder;
+    public GameObject noPlate;
 
     public void orderMenuOpen()
     {
@@ -41,21 +42,29 @@ public class orderScript : MonoBehaviour
 
     public void giveOrder() // Function for passing plate from player to AI
     {
-        Debug.Log("Order script check running");
-        int[] dish;
-        dish = playerObject.GetComponent<PlayerInventory>().currentDish;
-        Debug.Log(dish);
+        if (playerObject.GetComponent<PlayerInventory>().currentDish != null)
+        { // ensures player is holding a plate with food to give order
+            Debug.Log("Order script check running");
+            int[] dish;
+            dish = playerObject.GetComponent<PlayerInventory>().currentDish;
+            Debug.Log(dish);
 
-        if (npc.gameObject.transform.tag == "CustomerNPC")
-        {
-            npc.GetComponent<customer_npc>().checkOrder(dish);
+            if (npc.gameObject.transform.tag == "CustomerNPC")
+            {
+                npc.GetComponent<customer_npc>().checkOrder(dish);
 
-        } else if (npc.gameObject.transform.tag == "GordonRamsey")
+            }
+            else if (npc.gameObject.transform.tag == "GordonRamsey")
+            {
+                npc.GetComponent<GordonRamseyScript>().checkOrder(dish);
+            }
+
+            
+        } else
         {
-            npc.GetComponent<GordonRamseyScript>().checkOrder(dish);
+            noPlate.SetActive(true);
         }
         
-        playerObject.GetComponent<PlayerInventory>().currentDish = null;
     }
 
     public void placeFood()

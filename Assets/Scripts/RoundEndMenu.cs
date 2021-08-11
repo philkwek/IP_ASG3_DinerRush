@@ -19,15 +19,11 @@ public class RoundEndMenu : MonoBehaviour
         correctOrderText.text = correctOrder.ToString();
         missOrderText.text = missOrder.ToString();
 
-        if (endRound == true)
-        {
-            endRoundMenu.SetActive(true);
-        }
     }
 
     public void dayEnded()
     {
-        endRound = true;
+        endRoundMenu.SetActive(true);
     }
     public void increaseCorrectOrder()
     {

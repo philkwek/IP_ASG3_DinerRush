@@ -209,7 +209,7 @@ public class GordonRamseyScript : MonoBehaviour
             orderCorrect = true;
             canvas.GetComponent<orderScript>().toggleOrderAlert(true);
             order_received = true;
-
+            playerObject.GetComponent<PlayerInventory>().currentDish = null;
 
         }
         else if (numberCheck != numberOfDishes) // function to run when order given is wrong

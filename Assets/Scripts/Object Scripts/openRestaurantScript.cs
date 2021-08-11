@@ -9,6 +9,7 @@ public class openRestaurantScript : MonoBehaviour
     public GameObject ui;
 
     public GameObject warning; // for when player has not completed obj 1 & 2
+    public GameObject warning2; // for when player tries to close restaurant when there are still customers
     public GameObject close; //for player intending to close restaurant in the end
     public GameObject roundEnd;
 
@@ -19,6 +20,7 @@ public class openRestaurantScript : MonoBehaviour
             gameController.GetComponent<RoundScript>().objUpdate(3);
             spawner.SetActive(true);
             close.SetActive(true);
+            ui.SetActive(false);
         } else
         {
             warning.SetActive(true);
@@ -28,9 +30,13 @@ public class openRestaurantScript : MonoBehaviour
 
     public void closeRestaurant()
     {
-        if (gameController.GetComponent<RoundScript>().step5 == true)
+        if (gameController.GetComponent<RoundScript>().step4 == true)
         {
+            ui.SetActive(false);
             roundEnd.SetActive(true);
+        } else if (gameController.GetComponent<RoundScript>().step4 != true)
+        {
+            warning2.SetActive(true);
         }
     }
 
