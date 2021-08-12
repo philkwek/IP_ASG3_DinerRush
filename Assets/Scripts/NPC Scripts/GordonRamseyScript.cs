@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.VFX;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class GordonRamseyScript : MonoBehaviour
@@ -65,6 +66,9 @@ public class GordonRamseyScript : MonoBehaviour
 
     //Audio for delicious reaction
     public AudioSource delicious;
+
+    //Smoke Effect for eating;
+    public VisualEffect smoke;
 
 
     private void Awake()
@@ -270,6 +274,7 @@ public class GordonRamseyScript : MonoBehaviour
             if (eatTime > 0)
             {
                 eatTime -= 1 * Time.deltaTime;
+                smoke.Play();
             }
             else if (eatTime <= 0)
             {
