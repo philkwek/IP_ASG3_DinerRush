@@ -7,6 +7,11 @@ public class FridgeScript : MonoBehaviour
 {
     private bool objective2 = false;
 
+    public AudioSource sound;
+    public AudioClip fridgeOpen;
+    public AudioClip fridgeClose;
+    public AudioClip storeFood;
+
     public GameObject gameManager;
     public GameObject fridgeUI;
     public Animator fridge;
@@ -46,12 +51,16 @@ public class FridgeScript : MonoBehaviour
 
     public void openFridge()
     {
+        sound.clip = fridgeOpen;
+        sound.Play();
         fridge.SetBool("fridge_open", true);
         Invoke("enableFridgeUI", 1.0f);
     }
 
     public void closeFridge()
     {
+        sound.clip = fridgeClose;
+        sound.Play();
         fridge.SetBool("fridge_open", false);
     }
 
@@ -62,7 +71,7 @@ public class FridgeScript : MonoBehaviour
         {
             objective2 = true;
             var gamecontroller = GameObject.Find("GameController");
-            gamecontroller.GetComponent<RoundScript>().obj2_completion = true;
+            gamecontroller.GetComponent<RoundScript>().objUpdate(2);
         } //obj2 update code
 
         if (playerObject.GetComponent<PlayerInventory>().holdingItem == true)
@@ -72,6 +81,9 @@ public class FridgeScript : MonoBehaviour
 
         if (playerObject.GetComponent<PlayerInventory>().inventory != null)
         {
+            sound.clip = storeFood;
+            sound.Play();
+
             inventoryArray = playerObject.GetComponent<PlayerInventory>().inventory;
             Beef_Qty += inventoryArray[0];
             Bread_Qty += inventoryArray[1];

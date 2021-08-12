@@ -6,14 +6,13 @@ public class SpawnNPCScript : MonoBehaviour
 {
     private float nextSpawnTime;
 
+    public GameObject GameController;
+
     [SerializeField]
     private Transform SpawnLocation;
 
     [SerializeField]
     private GameObject npcPrefab;
-
-    [SerializeField]
-    private GameObject ramseyPrefab;
 
     [SerializeField]
     private float spawnDelay = 20; // sets spawn rate of the NPC
@@ -183,6 +182,11 @@ public class SpawnNPCScript : MonoBehaviour
             nextSpawnTime = Time.time + spawnDelay;
             var spawnNPC = Instantiate(npcPrefab, SpawnLocation.position, SpawnLocation.rotation);
             NPC = spawnNPC.transform.Find("NavMesh").gameObject;
+
+            //spawns Ramsey AI at a random time between 30-60 seconds;
+            int spawnTime = Random.Range(30, 60);
+            Invoke("spawnRamsey", spawnTime);
+
             if (npc_number == 1) //individual orders assigned to each npc 
             {
                 int[] order =
@@ -243,29 +247,12 @@ public class SpawnNPCScript : MonoBehaviour
                 NPC.GetComponent<customer_npc>().orderText = orderText;
 
             }
-            else if (npc_number == 6)
-            {
-                int[] order =
-               {
-                    0,
-                    5,
-                };
-                string orderText = "Beef Steak & Sausage";
-                NPC.GetComponent<customer_npc>().assignedOrder = order;
-                NPC.GetComponent<customer_npc>().orderText = orderText;
-
-            }
 
             //newNPC.
         } else if (roundNumber == 4)
         {
             //code gordon ramsey
         }
-    }
-
-    public void SpawnRamsey()
-    {
-        Instantiate(ramseyPrefab, SpawnLocation.position, SpawnLocation.rotation);
     }
 
     private bool ShouldSpawn() 
@@ -276,5 +263,10 @@ public class SpawnNPCScript : MonoBehaviour
     public void decreaseNPC()
     {
         //npc_number -= 1;
+    }
+
+    void spawnRamsey()
+    {
+        GameController.GetComponent<RoundScript>().spawnGordonRamsey();
     }
 }

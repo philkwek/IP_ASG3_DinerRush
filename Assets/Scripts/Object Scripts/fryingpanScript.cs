@@ -32,6 +32,8 @@ public class fryingpanScript : MonoBehaviour
 
     public GameObject takeFoodButton;
 
+    public bool cookingSound = false;
+    public AudioSource sound;
 
     public void Start()
     {
@@ -86,6 +88,15 @@ public class fryingpanScript : MonoBehaviour
         cookUIprogress.speed = 0;
     }
 
+    public void playSound()
+    {
+        if (cookingSound == false)
+        {
+            sound.Play();
+            cookingSound = true;
+        }
+    }
+
 
     public void Cooking()
     {
@@ -100,9 +111,13 @@ public class fryingpanScript : MonoBehaviour
             Debug.Log(cookTime);
             cookTime -= 1 * Time.deltaTime;
             cookUIprogress.speed = 1;
+            playSound();
 
         } else if (cookTime <= 0)
         {
+            cookingSound = false;
+            sound.Stop();
+
             foodCooked = true;
             foodCookedAlert.SetActive(true);
             takeFoodButton.SetActive(true);

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.VFX;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class customer_npc : MonoBehaviour
@@ -26,7 +27,8 @@ public class customer_npc : MonoBehaviour
     public bool ordered = false;
     public bool order_received = false;
     public bool order_complete = false;
-    public bool orderCorrect = false;
+    public bool orderCorrect = false; //true if order given is correct
+    public bool isLeaving = false;
 
     public bool orderTimer = false;
     public bool timerStart = false;
@@ -50,6 +52,8 @@ public class customer_npc : MonoBehaviour
 
     public GameObject canvas;
     public GameObject playerObject;
+
+    public VisualEffect smoke;
 
     private void Awake()
     {
@@ -116,6 +120,8 @@ public class customer_npc : MonoBehaviour
         currentTime = startingTime;
         orderTime = orderStarting_time;
         eatTime = eatDuration;
+
+
     }
 
     private void Update()
@@ -159,20 +165,23 @@ public class customer_npc : MonoBehaviour
     public void checkOrder(int[] dishes)
     {
         Debug.Log("Order Check running");
-        var numberOfDishes = dishes.GetLength(0);
+        var numberOfDishes = assignedOrder.GetLength(0);
         var numberCheck = 0;
         Debug.Log(dishes[0]);
 
-        for (int i = 0; i < numberOfDishes; i++)
+        if (numberOfDishes == dishes.GetLength(0))
         {
-            Debug.Log("Checking dish" + dishes[i]);
-
-            for (int x = 0; x < numberOfDishes; x++)
+            for (int i = 0; i < numberOfDishes; i++)
             {
-                if (dishes[i] == assignedOrder[x])
+                Debug.Log("Checking dish" + dishes[i]);
+
+                for (int x = 0; x < numberOfDishes; x++)
                 {
-                    numberCheck += 1;
-                    Debug.Log("Found match: " + numberCheck);
+                    if (dishes[i] == assignedOrder[x])
+                    {
+                        numberCheck += 1;
+                        Debug.Log("Found match: " + numberCheck);
+                    }
                 }
             }
         }
@@ -182,7 +191,8 @@ public class customer_npc : MonoBehaviour
             orderCorrect = true;
             canvas.GetComponent<orderScript>().toggleOrderAlert(true);
             order_received = true;
-            
+            playerObject.GetComponent<PlayerInventory>().currentDish = null;
+
 
         } else if (numberCheck != numberOfDishes)
         {
@@ -191,12 +201,12 @@ public class customer_npc : MonoBehaviour
         }
     }
 
-    public void startTimer()
+    public void startTimer() // for AI waiting for their order to be receieved
     {
         bool disappointed = false;
         bool angry = false;
 
-        if (order_received != true)
+        if (order_received != true && isLeaving == false && orderCorrect == false)
         {
             if (currentTime > 0)
             {
@@ -219,11 +229,13 @@ public class customer_npc : MonoBehaviour
                 LeaveRestaurant();
             }
 
-        } else if (order_complete == false) //code runs when order is complete & correct
+        } else if (order_complete == false && orderCorrect == true) //code runs when order is complete & correct
         {
             order_complete = true;
             timerStart = false;
             gameObject.GetComponent<npcMoodScript>().offAlert();
+
+            //this code transfers plate to table
             customerPlate = playerObject.GetComponent<PlayerInventory>().plateObject;
             customerPlate.transform.position = plateSelected.transform.position;
             customerPlate.transform.parent = aiObject.transform;
@@ -238,6 +250,7 @@ public class customer_npc : MonoBehaviour
             if (eatTime > 0)
             {
                 eatTime -= 1 * Time.deltaTime;
+                smoke.Play();
 
             } else if (eatTime <= 0)
             {
@@ -249,7 +262,7 @@ public class customer_npc : MonoBehaviour
         }
     }
 
-    public void startOrder()
+    public void startOrder() //for when order is taken, timer starts to for AI to wait for order
     {
         Debug.Log("Started Order wait timer");
         bool angry = false;
@@ -307,6 +320,7 @@ public class customer_npc : MonoBehaviour
 
     public void LeaveRestaurant() //leave restaurant script
     {
+        isLeaving = true;
         MoveToPoint(leaveObject.transform.position);
         //spawnObject.GetComponent<SpawnNPCScript>().decreaseNPC();
         //function above decreases total number of NPCs in game, allowing spawner to spawn in more NPCs

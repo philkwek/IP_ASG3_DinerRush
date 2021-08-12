@@ -4,25 +4,42 @@ using UnityEngine;
 
 public class DeleteNPCScript : MonoBehaviour
 {
-    //public GameObject SpawnObject;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //Variables for checking if Obj 4 has been completed
+    public int numberOfNPCs;
+    [SerializeField]
+    private int deletedNPCs;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public GameObject gameController;
+    public GameObject roundEnd; //for game stats shown in the roundend ui
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "CustomerNPC")
         {
+            deletedNPCs += 1;
+
+            if (deletedNPCs == numberOfNPCs)
+            {
+                gameController.GetComponent<RoundScript>().objUpdate(4);
+                //Invoke("endGame", 3.0f);
+            }
+
+            if (other.gameObject.GetComponent<customer_npc>().order_received == true)
+            {
+                roundEnd.GetComponent<RoundEndMenu>().increaseCorrectOrder();
+
+            } else if (other.gameObject.GetComponent<customer_npc>().order_received == false)
+            {
+                roundEnd.GetComponent<RoundEndMenu>().increaseMissOrder();
+            }
+            
             Destroy(other.gameObject);
             //SpawnObject.GetComponent<SpawnNPCScript>().decreaseNPC();
         }
+    }
+
+    public void endGame()
+    {
+        roundEnd.SetActive(true);
     }
 }

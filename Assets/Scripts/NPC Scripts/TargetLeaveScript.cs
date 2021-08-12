@@ -24,16 +24,48 @@ public class TargetLeaveScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "CustomerNPC")
+        if (other.transform.tag == "CustomerNPC" || other.transform.tag == "GordonRamsey")
         {
-            Target.SetActive(false); //disables target so spawner knows that seat has been occupied
+            if (other.transform.tag == "CustomerNPC")
+            {
+                if (other.gameObject.GetComponent<customer_npc>().orderStart == false)
+                {
+                    Target.SetActive(false); //disables target so spawner knows that seat has been occupied
 
-            NPC = other.gameObject;
+                    NPC = other.gameObject;
 
-            NPC.GetComponent<npcMoodScript>().orderAlert();
-            NPC.GetComponent<customer_npc>().orderStart = true;
+                    NPC.GetComponent<npcMoodScript>().orderAlert();
 
-            //Invoke("leaveFunction", 5.0f); // temporary function to test leaving script
+                    if (other.transform.tag == "CustomerNPC")
+                    {
+                        NPC.GetComponent<customer_npc>().orderStart = true;
+                    }
+                    else
+                    {
+                        NPC.GetComponent<GordonRamseyScript>().orderStart = true;
+                    }
+                }
+            } else if (other.transform.tag == "GordonRamsey")
+            {
+                if (other.gameObject.GetComponent<GordonRamseyScript>().orderStart == false)
+                {
+                    Target.SetActive(false); //disables target so spawner knows that seat has been occupied
+
+                    NPC = other.gameObject;
+
+                    NPC.GetComponent<npcMoodScript>().orderAlert();
+
+                    if (other.transform.tag == "CustomerNPC")
+                    {
+                        NPC.GetComponent<customer_npc>().orderStart = true;
+                    }
+                    else
+                    {
+                        NPC.GetComponent<GordonRamseyScript>().orderStart = true;
+                    }
+                }
+            }
+            
         }
     }
 

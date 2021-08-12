@@ -32,6 +32,9 @@ public class orderScript : MonoBehaviour
 
     public GameObject correctOrder;
     public GameObject wrongOrder;
+    public GameObject noPlate;
+
+    public AudioSource sound; // plays pencil write sound effect from order gameObject
 
     public void orderMenuOpen()
     {
@@ -39,14 +42,31 @@ public class orderScript : MonoBehaviour
         orderMenu.SetActive(true);
     }
 
-    public void giveOrder()
+    public void giveOrder() // Function for passing plate from player to AI
     {
-        Debug.Log("Order script check running");
-        int[] dish;
-        dish = playerObject.GetComponent<PlayerInventory>().currentDish;
-        Debug.Log(dish);
-        npc.GetComponent<customer_npc>().checkOrder(dish);
-        playerObject.GetComponent<PlayerInventory>().currentDish = null;
+        if (playerObject.GetComponent<PlayerInventory>().currentDish != null)
+        { // ensures player is holding a plate with food to give order
+            Debug.Log("Order script check running");
+            int[] dish;
+            dish = playerObject.GetComponent<PlayerInventory>().currentDish;
+            Debug.Log(dish);
+
+            if (npc.gameObject.transform.tag == "CustomerNPC")
+            {
+                npc.GetComponent<customer_npc>().checkOrder(dish);
+
+            }
+            else if (npc.gameObject.transform.tag == "GordonRamsey")
+            {
+                npc.GetComponent<GordonRamseyScript>().checkOrder(dish);
+            }
+
+            
+        } else
+        {
+            noPlate.SetActive(true);
+        }
+        
     }
 
     public void placeFood()
@@ -63,7 +83,8 @@ public class orderScript : MonoBehaviour
         if (status == true)
         {
             correctOrder.SetActive(true);
-        } else
+        }
+        else
         {
             wrongOrder.SetActive(true);
         }
@@ -73,45 +94,94 @@ public class orderScript : MonoBehaviour
     {
         if (customer1_text == false)
         {
+            sound.Play();
             customer1_text = true;
             customer1.text = orderText;
             npcMood.gameObject.GetComponent<npcMoodScript>().offAlert();
-            npcMood.gameObject.GetComponent<customer_npc>().timerStart = true;
+
+            if (npcMood.gameObject.transform.tag == "GordonRamsey")
+            {
+                npcMood.gameObject.GetComponent<GordonRamseyScript>().timerStart = true;
+            } else
+            {
+                npcMood.gameObject.GetComponent<customer_npc>().timerStart = true;
+            }
+            
 
         } else if (customer2_text == false)
         {
+            sound.Play();
             customer2_text = true;
             customer2.text = orderText;
             npcMood.gameObject.GetComponent<npcMoodScript>().offAlert();
-            npcMood.gameObject.GetComponent<customer_npc>().timerStart = true;
+            if (npcMood.gameObject.transform.tag == "GordonRamsey")
+            {
+                npcMood.gameObject.GetComponent<GordonRamseyScript>().timerStart = true;
+            }
+            else
+            {
+                npcMood.gameObject.GetComponent<customer_npc>().timerStart = true;
+            }
 
         } else if (customer3_text == false)
         {
+            sound.Play();
             customer3_text = true;
             customer3.text = orderText;
             npcMood.gameObject.GetComponent<npcMoodScript>().offAlert();
-            npcMood.gameObject.GetComponent<customer_npc>().timerStart = true;
+            if (npcMood.gameObject.transform.tag == "GordonRamsey")
+            {
+                npcMood.gameObject.GetComponent<GordonRamseyScript>().timerStart = true;
+            }
+            else
+            {
+                npcMood.gameObject.GetComponent<customer_npc>().timerStart = true;
+            }
 
         } else if (customer4_text == false)
         {
+            sound.Play();
             customer4_text = true;
             customer4.text = orderText;
             npcMood.gameObject.GetComponent<npcMoodScript>().offAlert();
-            npcMood.gameObject.GetComponent<customer_npc>().timerStart = true;
+            if (npcMood.gameObject.transform.tag == "GordonRamsey")
+            {
+                npcMood.gameObject.GetComponent<GordonRamseyScript>().timerStart = true;
+            }
+            else
+            {
+                npcMood.gameObject.GetComponent<customer_npc>().timerStart = true;
+            }
 
         } else if (customer5_text == false)
         {
+            sound.Play();
             customer5_text = true;
             customer5.text = orderText;
             npcMood.gameObject.GetComponent<npcMoodScript>().offAlert();
-            npcMood.gameObject.GetComponent<customer_npc>().timerStart = true;
+            if (npcMood.gameObject.transform.tag == "GordonRamsey")
+            {
+                npcMood.gameObject.GetComponent<GordonRamseyScript>().timerStart = true;
+            }
+            else
+            {
+                npcMood.gameObject.GetComponent<customer_npc>().timerStart = true;
+            }
 
         } else if (customer6_text == false)
         {
+            sound.Play();
             customer6_text = true;
             customer6.text = orderText;
             npcMood.gameObject.GetComponent<npcMoodScript>().offAlert();
-            npcMood.gameObject.GetComponent<customer_npc>().timerStart = true;
+            if (npcMood.gameObject.transform.tag == "GordonRamsey")
+            {
+                npcMood.gameObject.GetComponent<GordonRamseyScript>().timerStart = true;
+            }
+            else
+            {
+                npcMood.gameObject.GetComponent<customer_npc>().timerStart = true;
+            }
 
         }
     }

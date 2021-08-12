@@ -6,6 +6,7 @@ public class PlayerInventory : MonoBehaviour
 {
     public int RoundIndex;
     public bool objective_completion = false;
+    public GameObject gameController;
 
     //inventory quantity
     public int Beef_Qty = 0;
@@ -51,6 +52,7 @@ public class PlayerInventory : MonoBehaviour
                 if (Beef_Qty >= 1 && Egg_Qty >= 2 && Bread_Qty >= 1 && Sausage_Qty >= 1) 
                 {
                     objective_completion = true;
+                    gameController.GetComponent<RoundScript>().objUpdate(1);
                 }
             }
 
@@ -59,6 +61,7 @@ public class PlayerInventory : MonoBehaviour
                 if (Beef_Qty >= 2 && Egg_Qty >= 4 && Bread_Qty >= 2 && Corn_Qty >= 1 && Sausage_Qty >= 2)
                 {
                     objective_completion = true;
+                    gameController.GetComponent<RoundScript>().objUpdate(1);
                 }
             }
 
@@ -67,14 +70,7 @@ public class PlayerInventory : MonoBehaviour
                 if (Beef_Qty >= 3 && Egg_Qty >= 3 && Bread_Qty >= 1 && Corn_Qty >= 1 && Sausage_Qty >= 3 && Beans_Qty >= 1)
                 {
                     objective_completion = true;
-                }
-            }
-
-            else if (RoundIndex == 4)
-            {
-                if (Beef_Qty >= 1 && Egg_Qty >= 1 && Bread_Qty >= 1 && Beans_Qty >= 1)
-                {
-                    objective_completion = true;
+                    gameController.GetComponent<RoundScript>().objUpdate(1);
                 }
             }
         } 

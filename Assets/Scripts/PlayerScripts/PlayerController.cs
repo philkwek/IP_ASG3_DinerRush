@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
 
             else if (focusObject.transform.tag == "RestaurantOpen")
             {
-                focusObject.GetComponent<openRestaurantScript>().openDoors();
+                focusObject.GetComponent<openRestaurantScript>().openUI();
             }
 
             else if (focusObject.transform.tag == "CustomerNPC")
@@ -118,6 +118,22 @@ public class PlayerController : MonoBehaviour
                 }
                 
             }
+            else if (focusObject.transform.tag == "GordonRamsey")
+            {
+                if (focusObject.GetComponent<GordonRamseyScript>().ordered == false)
+                {
+                    focusObject.GetComponent<GordonRamseyScript>().interactOrder();
+                    canvas.GetComponent<orderScript>().npcMood = focusObject;
+                    focusObject = null;
+                }
+                else
+                {
+                    focusObject.GetComponent<GordonRamseyScript>().giveRamseyFoodUI();
+                    canvas.GetComponent<orderScript>().npc = focusObject;
+                    focusObject = null;
+                }
+
+            }
 
             else if (focusObject.transform.tag == "FryingPan")
             {
@@ -128,6 +144,11 @@ public class PlayerController : MonoBehaviour
             else if (focusObject.transform.tag == "Plate")
             {
                 focusObject.GetComponent<plateScript>().openPlateUI();
+            }
+
+            else if (focusObject.transform.tag == "trashBin")
+            {
+                focusObject.GetComponent<trashScript>().openUI();
             }
         }
 

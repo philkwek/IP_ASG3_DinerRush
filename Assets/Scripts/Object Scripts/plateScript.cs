@@ -30,6 +30,8 @@ public class plateScript : MonoBehaviour
     public GameObject playerObject;
     public GameObject canvas;
 
+    public AudioSource sound;
+
 
 
     private void Start()
@@ -41,7 +43,7 @@ public class plateScript : MonoBehaviour
         //spawnPl
     }
 
-    public void placeFood()
+    public void placeFood() //placing cooked food item from player onto plate
     {
         //get item food number
         //get reference to gameobject
@@ -126,8 +128,9 @@ public class plateScript : MonoBehaviour
         plateUI.SetActive(true);
     }
 
-    public void takePlate()
+    public void takePlate() //function for taking plate from kitchen counter
     {
+        sound.Play();
         gameObject.transform.position = playerHoldPlate.position;
         gameObject.transform.parent = playerObject.transform;
 
@@ -152,7 +155,7 @@ public class plateScript : MonoBehaviour
 
     }
 
-    public void DestroyFood()
+    public void DestroyFood() //function destroys all the food on the plate
     {
         foreach (Transform child in gameObject.transform)
         {
