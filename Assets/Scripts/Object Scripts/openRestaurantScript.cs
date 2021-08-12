@@ -18,6 +18,7 @@ public class openRestaurantScript : MonoBehaviour
     public AudioClip beforeOpen;
 
 
+
     public void openDoors()
     {
         if (gameController.GetComponent<RoundScript>().step1 == true && gameController.GetComponent<RoundScript>().step2 == true)
