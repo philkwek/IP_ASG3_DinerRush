@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.VFX;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class customer_npc : MonoBehaviour
@@ -51,6 +52,8 @@ public class customer_npc : MonoBehaviour
 
     public GameObject canvas;
     public GameObject playerObject;
+
+    public VisualEffect smoke;
 
     private void Awake()
     {
@@ -247,6 +250,7 @@ public class customer_npc : MonoBehaviour
             if (eatTime > 0)
             {
                 eatTime -= 1 * Time.deltaTime;
+                smoke.Play();
 
             } else if (eatTime <= 0)
             {
