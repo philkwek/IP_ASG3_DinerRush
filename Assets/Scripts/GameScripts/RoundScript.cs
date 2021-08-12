@@ -128,6 +128,7 @@ public class RoundScript : MonoBehaviour
 
     IEnumerator DoFadeIn()
     {
+        FadeScene.SetActive(true);
         CanvasGroup canvasGroup = FadeScene.GetComponent<CanvasGroup>();
         Debug.Log(canvasGroup.alpha);
         while (canvasGroup.alpha < 1)

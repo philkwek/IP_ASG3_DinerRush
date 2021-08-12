@@ -10,7 +10,7 @@ public class Play : MonoBehaviour
 
     public void PlayGame()
     {
-        RoundScript.GetComponent<RoundScript>().FadeToBlack();
+        RoundScript.GetComponent<mainMenuFade>().FadeInBlack();
         Invoke("Load1", 3.0f);
     }
 
