@@ -5,22 +5,26 @@ using UnityEngine;
 public class IndoorOutdoorScript : MonoBehaviour
 {
     public GameObject outdoor_wall;
+    private bool wall = true;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            Debug.Log("Trigger enter");
-            outdoor_wall.SetActive(false);
-        }
-    }
+    //public AudioSource bell;
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("Trigger exit");
-            outdoor_wall.SetActive(true);
+            Debug.Log("Trigger enter");
+
+            if (wall == true)
+            {
+                outdoor_wall.SetActive(false);
+                wall = false;
+            } else if (wall == false)
+            {
+                outdoor_wall.SetActive(true);
+                wall = true;
+            }
+            
         }
     }
 }

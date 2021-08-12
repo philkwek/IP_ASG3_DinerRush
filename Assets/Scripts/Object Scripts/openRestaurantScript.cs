@@ -14,6 +14,8 @@ public class openRestaurantScript : MonoBehaviour
     public GameObject roundEnd;
 
     public AudioSource sound;
+    public AudioClip restaurantOpen;
+    public AudioClip beforeOpen;
 
 
     public void openDoors()
@@ -25,6 +27,8 @@ public class openRestaurantScript : MonoBehaviour
             close.SetActive(true);
             ui.SetActive(false);
             Debug.Log(sound.name);
+            sound.clip = restaurantOpen;
+            Debug.Log(sound.clip.name);
             playAudio();
 
         } else

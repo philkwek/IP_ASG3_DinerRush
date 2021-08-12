@@ -34,6 +34,8 @@ public class orderScript : MonoBehaviour
     public GameObject wrongOrder;
     public GameObject noPlate;
 
+    public AudioSource sound; // plays pencil write sound effect from order gameObject
+
     public void orderMenuOpen()
     {
         orderUI_text.text = orderText;
@@ -81,7 +83,8 @@ public class orderScript : MonoBehaviour
         if (status == true)
         {
             correctOrder.SetActive(true);
-        } else
+        }
+        else
         {
             wrongOrder.SetActive(true);
         }
@@ -91,6 +94,7 @@ public class orderScript : MonoBehaviour
     {
         if (customer1_text == false)
         {
+            sound.Play();
             customer1_text = true;
             customer1.text = orderText;
             npcMood.gameObject.GetComponent<npcMoodScript>().offAlert();
@@ -106,6 +110,7 @@ public class orderScript : MonoBehaviour
 
         } else if (customer2_text == false)
         {
+            sound.Play();
             customer2_text = true;
             customer2.text = orderText;
             npcMood.gameObject.GetComponent<npcMoodScript>().offAlert();
@@ -120,6 +125,7 @@ public class orderScript : MonoBehaviour
 
         } else if (customer3_text == false)
         {
+            sound.Play();
             customer3_text = true;
             customer3.text = orderText;
             npcMood.gameObject.GetComponent<npcMoodScript>().offAlert();
@@ -134,6 +140,7 @@ public class orderScript : MonoBehaviour
 
         } else if (customer4_text == false)
         {
+            sound.Play();
             customer4_text = true;
             customer4.text = orderText;
             npcMood.gameObject.GetComponent<npcMoodScript>().offAlert();
@@ -148,6 +155,7 @@ public class orderScript : MonoBehaviour
 
         } else if (customer5_text == false)
         {
+            sound.Play();
             customer5_text = true;
             customer5.text = orderText;
             npcMood.gameObject.GetComponent<npcMoodScript>().offAlert();
@@ -162,6 +170,7 @@ public class orderScript : MonoBehaviour
 
         } else if (customer6_text == false)
         {
+            sound.Play();
             customer6_text = true;
             customer6.text = orderText;
             npcMood.gameObject.GetComponent<npcMoodScript>().offAlert();

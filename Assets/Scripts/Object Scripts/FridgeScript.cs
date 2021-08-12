@@ -10,6 +10,7 @@ public class FridgeScript : MonoBehaviour
     public AudioSource sound;
     public AudioClip fridgeOpen;
     public AudioClip fridgeClose;
+    public AudioClip storeFood;
 
     public GameObject gameManager;
     public GameObject fridgeUI;
@@ -80,6 +81,9 @@ public class FridgeScript : MonoBehaviour
 
         if (playerObject.GetComponent<PlayerInventory>().inventory != null)
         {
+            sound.clip = storeFood;
+            sound.Play();
+
             inventoryArray = playerObject.GetComponent<PlayerInventory>().inventory;
             Beef_Qty += inventoryArray[0];
             Bread_Qty += inventoryArray[1];
