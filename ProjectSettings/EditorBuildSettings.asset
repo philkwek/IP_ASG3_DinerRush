@@ -11,16 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/round1.unity
     guid: 3e83e79a75fce424398de00003b7a9a9
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/round2.unity
-    guid: c2ce28cd60ceb477a990a44183915995
-  - enabled: 0
+    guid: cd8952b6831e043c6ba3b2f279ff3893
+  - enabled: 1
     path: Assets/Scenes/round3.unity
-    guid: 67cefa6f7f73542b89341f64efbf38d8
+    guid: 7f7d76a745cef4cdd8447f4d93f41b73
   - enabled: 1
     path: Assets/Scenes/credits.unity
     guid: 4f226f97302b88b42aadc1e3f33065a3
-  - enabled: 1
-    path: Assets/Scenes/round1.unity
-    guid: 3e83e79a75fce424398de00003b7a9a9
   m_configObjects: {}
